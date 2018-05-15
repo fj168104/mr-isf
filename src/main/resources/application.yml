@@ -1,0 +1,216 @@
+#公共配置
+server:
+  #端口号
+  port: 8080
+  context-path: /
+spring:
+  #激活哪一个环境的配置文件
+  profiles:
+    active: dev
+ #数据源
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    # 使用druid数据源
+    type: com.alibaba.druid.pool.DruidDataSource
+    # 下面为连接池的补充设置，应用到上面所有数据源中
+    # 初始化大小，最小，最大
+    druid:
+      initialSize: 5
+      minIdle: 5
+      maxActive: 20
+      # 配置获取连接等待超时的时间
+      maxWait: 60000
+      # 配置间隔多久才进行一次检测，检测需要关闭的空闲连接，单位是毫秒
+      timeBetweenEvictionRunsMillis: 60000
+      # 配置一个连接在池中最小生存的时间，单位是毫秒
+      minEvictableIdleTimeMillis: 300000
+      validationQuery: SELECT 1 FROM DUAL
+      testWhileIdle: true
+      testOnBorrow: false
+      testOnReturn: false
+      # 打开PSCache，并且指定每个连接上PSCache的大小
+      poolPreparedStatements: true
+      maxPoolPreparedStatementPerConnectionSize: 20
+      # 配置监控统计拦截的filters，去掉后监控界面sql无法统计，'wall'用于防火墙
+      filters: stat,log4j,config
+      # 通过connectProperties属性来打开mergeSql功能；慢SQL记录
+      connectionProperties: druid.stat.mergeSql=true;druid.stat.slowSqlMillis=5000
+      filter:
+        wall:
+          enabled: true
+          config:
+            # 开启批量提交
+            multi-statement-allow: true
+      # 合并多个DruidDataSource的监控数据
+      #useGlobalDataSourceStat: true
+
+      #Druid监控web配置
+      web-stat-filter:
+        url-pattern: /*
+#        exclusions: *.js,*.gif,*.jpg,*.png,*.css,*.ico,/druid/*
+      stat-view-servlet:
+        url-pattern: /admin/sys/monitor/druid/*
+        #设置白名单
+#        allow: 10.105.0.220
+        #设置黑名单
+        deny:
+        #设置登录查看信息的账号密码
+#        login-username: admin
+#        login-password: admin
+  #视图
+  mvc:
+    view:
+      prefix: /templates/
+      suffix: .html
+  #thymeleaf模版
+  thymeleaf:
+    cache: false
+    mode: HTML
+    encoding: UTF-8
+    content-type: text/html
+  #文件上传配置
+  http:
+    multipart:
+      #开启文件上传
+      enabled: true
+      file-size-threshold: 0
+      #懒加载
+      resolve-lazily: true
+      #单个文件的大小限制
+      max-file-size: 1MB
+      #整个请求文件的大小限制
+      max-request-size: 10MB
+  #jackson配置
+  jackson:
+    # 属性为NULL 不序列化
+    default-property-inclusion: non_null
+  #异步线程池配置
+  task:
+    pool:
+      maxPoolSize: 100
+
+#mybatis
+mybatis:
+  #指定目录类型别名扫描,多个包用;号分割
+#  type-aliases-package: com.mr.model
+  #指定mapper.xml的位置
+  mapper-locations: classpath:mapper/**/*.xml
+  configuration:
+    #开启驼峰命名法转换字段支持,用于对象关系绑定
+    map-underscore-to-camel-case: true
+
+#通用mapper
+mapper:
+  mappers:
+      - com.mr.common.base.mapper.BaseMapper
+  not-empty: false
+  identity: MYSQL
+
+#分页插件
+pagehelper:
+  helperDialect: mysql
+  reasonable: true
+  supportMethodsArguments: true
+  params: count=countSql
+
+
+
+---
+#开发环境配置
+server:
+  #端口
+  port: 8086
+spring:
+  profiles: dev
+  #数据源
+  datasource:
+    url: jdbc:mysql://47.100.7.81:3306/data_isf?useUnicode=true&characterEncoding=utf-8&useSSL=false&autoReconnect=true&allowMultiQueries=true
+    username: root
+    password: ${password}
+#日志
+logging:
+  config: classpath:logback-mr.xml
+  path: /home/fengjiang/Documents/export
+
+#数据库密码加密
+#java -cp druid-1.1.0.jar com.alibaba.druid.filter.config.ConfigTools 你的密码
+publicKey: MFwwDQYJKoZIhvcNAQEBBQADSwAwSAJBAKTusxtIrx4B0a5Pi5oUImdtQrkV9spQaUYv6xpCIoAtM50Yo9d9miMTWF145+wwScNaV5QF+r+jQ0DCZL0/+j8CAwEAAQ==
+password: Root@1234
+
+#上传文件配置信息
+#文件仓库地址
+repositoryPath: D:\\good
+#图片访问路径
+imageUrl: http://image.good.com
+#文档访问路径
+docUrl: http://doc.good.com
+
+
+
+---
+#测试环境配置
+server:
+  #端口
+  port: 8082
+spring:
+  profiles: test
+  #数据源
+  datasource:
+    url: jdbc:mysql://172.19.9.223:3306/good_manage?useUnicode=true&characterEncoding=utf-8&useSSL=true&autoReconnect=true&allowMultiQueries=true
+    username: root
+    password: ${password}
+  #thymeleaf模版
+  thymeleaf:
+    cache: true
+#日志
+logging:
+  config: classpath:logback-mr.xml
+  path: log
+
+#数据库密码加密
+#java -cp druid-1.1.0.jar com.alibaba.druid.filter.config.ConfigTools 你的密码
+publicKey: MFwwDQYJKoZIhvcNAQEBBQADSwAwSAJBALIIrhv6tAq+LO/ZYcVqsFdw5ZN67H9xYrsqhxIyexoeCcnrw7b9PaSShq94qj1if0aRrDgkCDCCkCrfhobZaqMCAwEAAQ==
+password: F7AJqYN2NptXHZhFrBpLcpiHpqnyIITBY59qxc/5T6XuU4COC3x+qT+kpgyuzS4g2sZ3Oxu737nRboTwA9YeUw==
+
+#上传文件配置信息
+#文件仓库地址
+repositoryPath: /home/good
+#图片访问路径
+imageUrl: http://image.good.com
+#文档访问路径
+docUrl: http://doc.good.com
+
+
+
+---
+#生产环境配置
+server:
+  #端口
+  port: 8083
+spring:
+  profiles: pro
+  #数据源
+  datasource:
+    url: jdbc:mysql://127.0.0.1:3306/good_manage?useUnicode=true&characterEncoding=utf-8&useSSL=true&autoReconnect=true&allowMultiQueries=true
+    username: root
+    password: ${password}
+  #thymeleaf模版
+  thymeleaf:
+    cache: true
+#日志
+logging:
+  config: classpath:logback-mr.xml
+  path: log
+
+#数据库密码加密
+#java -cp druid-1.1.0.jar com.alibaba.druid.filter.config.ConfigTools 你的密码
+publicKey: MFwwDQYJKoZIhvcNAQEBBQADSwAwSAJBAIypmsbdlv4rDJUdLTv7J0YHLuxdc4ob8uH/R4+ORNTBaK3+lQa+Ly/CfuU22kVrmywXFV343zhi1VFg/JeeIJMCAwEAAQ==
+password: dpCDgovbI8DVbkIkyJe6Jqep64P2wc3MNnA6k0U0NyywFCbSeupWWpeFeXRa2gW44ZvywMgN/y8AHHn5cCYHDw==
+
+#上传文件配置信息
+#文件仓库地址
+repositoryPath: /home/good
+#图片访问路径
+imageUrl: http://image.good.com
+#文档访问路径
+docUrl: http://doc.good.com

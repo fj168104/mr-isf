@@ -1,0 +1,547 @@
+<?xml version="1.0" encoding="GB2312"?>
+<AppInstant>
+	<MessageList>
+		<Message ID="CNCYB_Syshead_Req"	 SelectSQL=""  Description="中国个人网银系统头_请求">
+			<Field No="1" FieldTag="PACKAGE_LENGTH" ValueSource="Default"	TableField=""	DefaultValue=""	Description="报文长度"	DataType="int"	Length="10" IsRequire="Y"/> 
+			<Field No="2" FieldTag="SERVICE_CODE" 	ValueSource="Default"	TableField=""	DefaultValue=""	Description="服务代码"	DataType="string"	Length="20" IsRequire="Y"/> 
+			<Field No="3" FieldTag="CONSUMER_SYSID" ValueSource="Default"	TableField=""	DefaultValue=""	Description="请求系统编号"	DataType="string"	Length="5" IsRequire="Y"/> 
+			<Field No="4" FieldTag="CONSUMER_SEQ_NO" ValueSource="Default"	TableField=""	DefaultValue=""	Description="服务请求发送方流水号"	DataType="string"	Length="20" IsRequire="Y"/> 
+			<Field No="5" FieldTag="ORG__CONSUMER_SYSID" ValueSource="Default"	TableField=""	DefaultValue=""	Description="原始请求系统编号"	DataType="string"	Length="5" IsRequire="N"/> 
+			<Field No="6" FieldTag="WS_ID" ValueSource="Default"	TableField=""	DefaultValue=""	Description="终端标识"	DataType="string"	Length="30" IsRequire="N"/> 
+			<Field No="7" FieldTag="TRAN_DATE" ValueSource="Default"	TableField=""	DefaultValue=""	Description="发送方交易日期"	DataType="string"	Length="8" IsRequire="Y"/> 
+			<Field No="8" FieldTag="TRAN_TIME" ValueSource="Default"	TableField=""	DefaultValue=""	Description="发送方交易时间"	DataType="string"	Length="9" IsRequire="N"/> 
+			<Field No="9" FieldTag="USER_LANG" ValueSource="Default"	TableField=""	DefaultValue=""	Description="用户语言"	DataType="string"	Length="20" IsRequire="N"/> 
+		</Message>
+		
+		<Message ID="CNCYB_Syshead_Res"  SelectSQL=""  Description="中国个人网银系统头_响应">
+			<Field No="1" FieldTag="PACKAGE_LENGTH" ValueSource="Default"	TableField=""	DefaultValue="0"	Description="报文长度"	DataType="int"	Length="10" IsRequire="Y"/> 
+			<Field No="2" FieldTag="SERVICE_CODE" 	ValueSource="Default"	TableField=""	DefaultValue="#Constants.SERVICE_CODE"	Description="服务代码"	DataType="string"	Length="20" IsRequire="Y"/> 
+			<Field No="3" FieldTag="CONSUMER_SYSID" ValueSource="Default"	TableField=""	DefaultValue="#Constants.CONSUMER_SYSID"	Description="请求系统编号"	DataType="string"	Length="5" IsRequire="Y"/> 
+			<Field No="4" FieldTag="CONSUMER_SEQ_NO" ValueSource="Default"	TableField=""	DefaultValue="#Constants.CONSUMER_SEQ_NO"	Description="服务请求发送方流水号"	DataType="string"	Length="20" IsRequire="Y"/> 
+			<Field No="5" FieldTag="ORG__CONSUMER_SYSID" ValueSource="Default"	TableField=""	DefaultValue=""	Description="原始请求系统编号"	DataType="string"	Length="5" IsRequire="N"/> 
+			<Field No="6" FieldTag="YRL_SEQ_NO" ValueSource="Default"	TableField=""	DefaultValue="#Constants.YRL_SEQ_NO"	Description="YRL响应流水号"	DataType="string"	Length="20" IsRequire="Y"/> 
+			<Field No="7" FieldTag="TRAN_DATE" ValueSource="Default"	TableField=""	DefaultValue="#Constants.TRAN_DATE"	Description="YRL响应日期"	DataType="string"	Length="8" IsRequire="Y"/> 
+			<Field No="8" FieldTag="TRAN_TIME" ValueSource="Default"	TableField=""	DefaultValue="#Constants.TRAN_TIME"	Description="YRL响应时间"	DataType="string"	Length="9" IsRequire="Y"/> 
+			<Field No="9" FieldTag="USER_LANG" ValueSource="Default"	TableField=""	DefaultValue="#Constants.USER_LANG"	Description="用户语言"	DataType="string"	Length="20" IsRequire="N"/> 
+			<Field No="10" FieldTag="RET_STATUS" ValueSource="Default"	TableField=""	DefaultValue="S"	Description="服务状态"	DataType="string"	Length="1" IsRequire="Y"/> 
+			<Field No="11" FieldTag="RET_ARRAY_NUM" ValueSource="Default"	TableField=""	DefaultValue="1"	Description="响应代码数组个数"	DataType="int"	Length="2" IsRequire="Y"/> 
+			<Field No="12" FieldTag="RET_ARRAY" ValueSource="Default"	TableField=""	DefaultValue=""	Description="响应代码数组"	DataType="array" ArrayName="CNCYB_Syshead_Res_RET"/> 
+		</Message>
+		<Message ID="CNCYB_Syshead_Res_RET"  SelectSQL=""  Description="中国个人网银系统头_响应信息">
+			<Field No="1" FieldTag="RET_CODE" 	ValueSource="Default"	TableField=""	DefaultValue=""	Description="服务响应代码"	DataType="string"	Length="10"/> 
+			<Field No="2" FieldTag="RET_MESSAGE" 	ValueSource="Default"	TableField=""	DefaultValue=""	Description="服务响应描述"	DataType="string"	Length="100"/> 
+		</Message>
+		
+		
+		<Message ID="CNCYB_PreApprove_Req" Description="贷款预审批_请求">
+			<Field No="1" FieldTag="txn_ref" 	ValueSource="Default"	TableField=""	DefaultValue=""	Description="交易编号"	DataType="string"	Length="12" IsRequire="Y"/> 
+			<Field No="2" FieldTag="Busi_type" 	ValueSource="Default"	TableField=""	DefaultValue=""	Description="业务品种"	DataType="string"	Length="2" IsRequire="Y"/> 
+			<Field No="3" FieldTag="Currency" 	ValueSource="Default"	TableField=""	DefaultValue=""	Description="币种"	DataType="string"	Length="3" IsRequire="Y"
+				ReplaceSQL=" select  itemno from code_library where codeno = 'Currency' and  attribute2 = ? and isinuse = '1' " />
+			<Field No="4" FieldTag="loan_amount" 	ValueSource="Default"	TableField=""	DefaultValue=""	Description="贷款金额"	DataType="double"	Length="18,2" IsRequire="Y"/> 
+			<Field No="5" FieldTag="Time_limit" 	ValueSource="Default"	TableField=""	DefaultValue=""	Description="贷款期限"	DataType="int"	Length="10" IsRequire="Y"/> 
+			<Field No="6" FieldTag="Property_nature" 	ValueSource="Default"	TableField=""	DefaultValue=""	Description="所购房性质"	DataType="string"	Length="1" /> 
+			<Field No="7" FieldTag="Property_type" 	ValueSource="Default"	TableField=""	DefaultValue=""	Description="房产类型"	DataType="string"	Length="10" /> 
+			<Field No="8" FieldTag="trade_price" 	ValueSource="Default"	TableField=""	DefaultValue=""	Description="房屋交易价"	DataType="double"	Length="18,2" /> 
+			<Field No="9" FieldTag="Estimate_price" 	ValueSource="Default"	TableField=""	DefaultValue=""	Description="房屋评估价"	DataType="double"	Length="18,2" />  
+			<Field No="10" FieldTag="Property_age" 	ValueSource="Default"	TableField=""	DefaultValue=""	Description="房龄"	DataType="int" Length="3" /> 
+			<Field No="11" FieldTag="Birthday" 	ValueSource="Default"	TableField=""	DefaultValue=""	Description="出生日期"	DataType="string"	Length="8" IsRequire="Y" ReplaceSQL="select to_char(to_date(?,'yyyymmdd'),'yyyy/mm/dd') from dual"/>
+			<Field No="12" FieldTag="Properties_no" 	ValueSource="Default"	TableField=""	DefaultValue=""	Description="已有住房套数"	DataType="int" Length="3"/> 
+			<Field No="13" FieldTag="Local" 	ValueSource="Default"	TableField=""	DefaultValue=""	Description="是否本地居民"	DataType="string"	Length="1" ReplaceSQL="select decode(?,'Y','1','N','2','') from dual"/> 
+			<Field No="14" FieldTag="Monthly_income" 	ValueSource="Default"	TableField=""	DefaultValue=""	Description="平均月收入"	DataType="double" Length="18,2" IsRequire="Y"/> 
+			<Field No="15" FieldTag="other_debt" 	ValueSource="Default"	TableField=""	DefaultValue=""	Description="除本笔贷款外其他月负债金额"	DataType="double" Length="18,2" IsRequire="Y"/> 
+			<Field No="16" FieldTag="name" 	ValueSource="Default"	TableField=""	DefaultValue=""	Description="客户姓名"	DataType="string"	Length="60" IsRequire="Y"/> 
+			<Field No="17" FieldTag="title" 	ValueSource="Default"	TableField=""	DefaultValue=""	Description="称谓"	DataType="string"	Length="1" IsRequire="Y"/> 
+			<Field No="18" FieldTag="Countrycode" 	ValueSource="Default"	TableField=""	DefaultValue=""	Description="手机国际区号"	DataType="string"	Length="3" IsRequire="Y"/> 
+			<Field No="19" FieldTag="cell_phone" 	ValueSource="Default"	TableField=""	DefaultValue=""	Description="手机号码"	DataType="string"	Length="11" IsRequire="Y"/> 
+			<Field No="20" FieldTag="Zone" 	ValueSource="Default"	TableField=""	DefaultValue=""	Description="所在地区"	DataType="string"	Length="10" IsRequire="Y"/> 
+			<Field No="21" FieldTag="opera_site" 	ValueSource="Default"	TableField=""	DefaultValue=""	Description="经营场所"	DataType="string"	Length="1" /> 
+			<Field No="22" FieldTag="new_auto" 	ValueSource="Default"	TableField=""	DefaultValue=""	Description="是否一手车"	DataType="string"	Length="1" /> 
+			<Field No="23" FieldTag="auto_price" 	ValueSource="Default"	TableField=""	DefaultValue=""	Description="车辆购买价格"	DataType="double" Length="18,2" /> 
+			<Field No="24" FieldTag="oversea" 	ValueSource="Default"	TableField=""	DefaultValue=""	Description="是否境外居民且连续居住不满一年"	DataType="string"	Length="1" ReplaceSQL="select decode(?,'Y','1','N','2','') from dual"/> 
+			<Field No="25" FieldTag="comp_nature" 	ValueSource="Default"	TableField=""	DefaultValue=""	Description="单位性质"	DataType="string"	Length="2" /> 
+			<Field No="26" FieldTag="Comp_work_time" 	ValueSource="Default"	TableField=""	DefaultValue=""	Description="所在单位工作年限"	DataType="int" Length="3" /> 
+			<Field No="27" FieldTag="position" 	ValueSource="Default"	TableField=""	DefaultValue=""	Description="现任职位"	DataType="string"	Length="10" /> 
+			<Field No="28" FieldTag="married" 	ValueSource="Default"	TableField=""	DefaultValue=""	Description="婚姻状况"	DataType="string"	Length="2" /> 
+			<Field No="29" FieldTag="Live_status" 	ValueSource="Default"	TableField=""	DefaultValue=""	Description="居住状况"	DataType="string"	Length="2" /> 
+			<Field No="30" FieldTag="Credit_card" 	ValueSource="Default"	TableField=""	DefaultValue=""	Description="是否使用信用卡"	DataType="string"	Length="1" ReplaceSQL="select decode(?,'Y','1','N','2','') from dual"/>  
+			<Field No="31" FieldTag="cc_balance" 	ValueSource="Default"	TableField=""	DefaultValue=""	Description="过去三个月平均信用卡余额"	DataType="double" Length="18,2" /> 
+			<Field No="32" FieldTag="Other_loan" 	ValueSource="Default"	TableField=""	DefaultValue=""	Description="是否已有贷款"	DataType="string"	Length="1" /> 
+			<Field No="33" FieldTag="Load_apply" 	ValueSource="Default"	TableField=""	DefaultValue=""	Description="过去6个月有否申请贷款"	DataType="string"	Length="1" ReplaceSQL="select decode(?,'Y','1','N','2','') from dual"/>   
+			<Field No="34" FieldTag="overdue" 	ValueSource="Default"	TableField=""	DefaultValue=""	Description="过去12个月是否有逾期"	DataType="string"	Length="1" ReplaceSQL="select decode(?,'Y','1','N','2','') from dual"/>  
+			<Field No="35" FieldTag="Overdue_no" 	ValueSource="Default"	TableField=""	DefaultValue=""	Description="逾期次数"	DataType="int" Length="3"/> 
+			<Field No="36" FieldTag="Overdue_amount" 	ValueSource="Default"	TableField=""	DefaultValue=""	Description="最高逾期期数"	DataType="int" Length="3"/> 
+			<Field No="37" FieldTag="cust_no" 	ValueSource="Default"	TableField=""	DefaultValue=""	Description="客户号"	DataType="string"	Length="20" /> 
+			<Field No="38" FieldTag="ID_Type" 	ValueSource="Default"	TableField=""	DefaultValue=""	Description="证件类型"	DataType="string" Length="3"
+				ReplaceSQL="select itemno as certtype from code_library where codeno = 'CertType' and attribute2= ? and isinuse ='1' "/> 
+			<Field No="39" FieldTag="Cert_No" 	ValueSource="Default"	TableField=""	DefaultValue=""	Description="证件号码"	DataType="string" Length="25"/>  
+			<Field No="40" FieldTag="Issued_Country" 	ValueSource="Default"	TableField=""	DefaultValue=""	Description="发证国家"	DataType="string"	Length="3"
+					ReplaceSQL="select itemno from code_library where codeno = 'CountryCode' and attribute2 = ? and isinuse ='1'" /> 
+		</Message>
+		
+		<Message ID="CNCYB_PreApprove_Res" Description="贷款预审批_响应">
+			<Field No="1" FieldTag="txn_ref" 	ValueSource="Default"	TableField=""	DefaultValue="#Constants.txn_ref"	Description="交易编号"	DataType="string"	Length="12" IsRequire="Y"/> 
+			<Field No="2" FieldTag="result" 	ValueSource="Default"	TableField=""	DefaultValue="#Constants.result"	Description="预审批申请结果"	DataType="string"	Length="1" IsRequire="Y"/> 
+			<Field No="3" FieldTag="appr_info" 	ValueSource="Default"	TableField=""	DefaultValue="#Constants.appr_info"	Description="修改信息描述"	DataType="string"	Length="100" /> 
+			<Field No="4" FieldTag="no" 	ValueSource="Default"	TableField=""	DefaultValue="#Constants.no"	Description="预审批编号"	DataType="string"	Length="20" IsRequire="Y"/> 
+			<Field No="5" FieldTag="currency" 	ValueSource="Default"	TableField=""	DefaultValue="#Constants.currency"	Description="币种"	DataType="string"	Length="3" 
+			ReplaceSQL="select attribute2 from code_library where codeno = 'Currency' and itemno = ? and isinuse = '1'"/> 
+			<Field No="6" FieldTag="amount" 	ValueSource="Default"	TableField=""	DefaultValue="#Constants.amount"	Description="预审批金额"	DataType="double" Length="18,2" /> 
+			<Field No="7" FieldTag="time" 	ValueSource="Default"	TableField=""	DefaultValue="#Constants.time"	Description="预审批期限"	DataType="int" Length="10" /> 
+			<Field No="8" FieldTag="rate" 	ValueSource="Default"	TableField=""	DefaultValue="#Constants.rate"	Description="预审批年利率（%）"	DataType="double" Length="12,8"/> 
+			<Field No="9" FieldTag="payment_method" 	ValueSource="Default"	TableField=""	DefaultValue="01"	Description="还款方式"	DataType="string"	Length="10" /> 
+		</Message>
+		
+		<Message ID="Cncyb_QueryCredit_Req" Description="个贷信息查询">
+			<Field No="1" FieldTag="cust_no" 	ValueSource="Default"	TableField=""	DefaultValue=""	Description="客户号"	DataType="string"	Length="20" /> 
+			<Field No="2" FieldTag="ID_Type" 	ValueSource="Default"	TableField=""	DefaultValue=""	Description="证件类型"	DataType="string"	Length="3" /> 
+			<Field No="3" FieldTag="Cert_No" 	ValueSource="Default"	TableField=""	DefaultValue=""	Description="证件号码"	DataType="string"	Length="25" /> 
+			<Field No="4" FieldTag="Issued_Country" 	ValueSource="Default"	TableField=""	DefaultValue=""	Description="发证国家"	DataType="string"	Length="3"
+				ReplaceSQL="select itemno from code_library where codeno = 'CountryCode' and attribute2 = ? and isinuse ='1'" /> 
+			<Field No="5" FieldTag="Apply_status" 	ValueSource="Default"	TableField=""	DefaultValue=""	Description="申请状态"	DataType="string"	Length="1" IsRequire="Y"/> 
+			<Field No="6" FieldTag="Start_no" 	ValueSource="Default"	TableField=""	DefaultValue=""	Description="起始记录数"	DataType="int"	Length="4" IsRequire="Y"/> 
+			<Field No="7" FieldTag="record_num" 	ValueSource="Default"	TableField=""	DefaultValue=""	Description="查询记录数"	DataType="int" Length="4" IsRequire="Y" /> 
+		</Message>
+		
+		<Message ID="Cncyb_QueryCredit_Res"	SelectSQL=""	Description="个贷信息查询响应">
+			<Field No="1" FieldTag="Total_No" 	ValueSource="array" TableField="" DefaultValue="Cncyb_QueryCredit_Res_Dtl" Description="总的记录数"  DataType="int" 	Length="4" IsRequire="Y"/>
+			<Field No="2" FieldTag="Countrycode" 	ValueSource="Default"	TableField=""	DefaultValue="#Constants.Countrycode"	Description="接受短信的手机国际区号"	DataType="string"	Length="3" /> 
+			<Field No="3" FieldTag="Phone_number" 	ValueSource="Default"	TableField=""	DefaultValue="#Constants.Phone_number"	Description="接受短信的手机号码"	DataType="string"	Length="11" /> 
+			<Field No="4" FieldTag="Lang_type" 	ValueSource="Default"	TableField=""	DefaultValue="1"	Description="接收短信语言类型"	DataType="int"	Length="1" /> 
+			<Field No="5" FieldTag="Record_num" 	ValueSource="array" TableField="" DefaultValue="Cncyb_QueryCredit_Res_Dtl" Description="记录数"  DataType="string" 	Length="3" IsRequire="Y"/>
+			<Field No="6" FieldTag="dtl_array"  ValueSource="" TableField="" DefaultValue="" Description="贷款数组"  DataType="array" ArrayName="Cncyb_QueryCredit_Res_Dtl"	/>
+		</Message>
+		
+		<Message ID="Cncyb_QueryCredit_Res_Dtl" 
+				SelectSQL=" select substr(ba.serialno,1,20) Apply_no,
+							       substr(al.serialno,1,20) Loan_no,
+							       ba.businesstype Loan_type,
+							       replace(al.putoutdate,'/', '') Start_date,
+							       ba.businesssum principal,
+							       ba.businesscurrency currency,
+							       al.loanterm Time_limit,
+							       (select businessrate from acct_rate_segment where objectno = al.serialno and objecttype = 'Loan' and ratetype = '01') rate,
+							       al.normalbalance + al.overduebalance Outstanding_Principal,
+							       al.overduebalance Overdue_Principal,
+							       case when al.odintebalance > 0 then al.odintebalance else 0 end ODInterest,
+							       al.compintebalance CompoundInterest,
+							       replace(al.maturitydate,'/','') Due_time,
+							       decode(al.serialno, null, (select decode(phaseno, 'End0', '2', 'End1', '3', 'End2', '5', '1') from flow_object where objectno = ba.serialno and objecttype = 'BusinessApply'), '4') Apply_status,
+							       replace(ba.occurdate,'/','') apply_date,
+							       nvl(al.defaultpayacctno,ba.payaccountno) Account_no,
+					               nvl(al.defaultpayacctname, ba.payaccountname) Account_name,             
+					               decode( bc.languagetype ,null,substr(ba.languagetype,2,2), substr(bc.languagetype,2,2))  Addr_lang,   
+					               decode(bc.country,null,ba.country, bc.country)  country,    
+					               '' province, 
+					               nvl(bc.zipcode, '') Postcode,
+					               nvl(bc.mailcode, '') Post_method,
+					               decode(bc.address1 ,null, nvl(ba.address1, ' ')||'|' || nvl(ba.address2, ' ')||'|' || nvl(ba.address3, ' ')||'|' || nvl(ba.address4, ' ') ,  nvl(bc.address1, ' ')||'|' || nvl(bc.address2, ' ')||'|' || nvl(bc.address3, ' ')||'|' || nvl(bc.address4, ' ') ) Addr_detail, 
+					       		   ba.signflag SignOnline
+							  from business_apply ba
+							  left join business_contract bc on ba.serialno = bc.relativeserialno
+							  left join acct_loan al on bc.serialno = al.contractserialno "  
+				Description="个贷信息查询响应详情" >
+			<Field No="1" FieldTag="Record_no" 	ValueSource="SelectSQL"	TableField="row_id"	DefaultValue=""	Description="记录编号"	DataType="int"	Length="4" IsRequire="Y"/> 
+			<Field No="2" FieldTag="Apply_no" 	ValueSource="SelectSQL"	TableField="Apply_no"	DefaultValue=""	Description="申请编号"	DataType="string"	Length="20" IsRequire="Y"/> 
+			<Field No="3" FieldTag="Loan_no" 	ValueSource="SelectSQL"	TableField="Loan_no"	DefaultValue=""	Description="贷款编号"	DataType="string"	Length="20" /> 
+			<Field No="4" FieldTag="Loan_type" 	ValueSource="SelectSQL"	TableField="Loan_type"	DefaultValue=""	Description="贷款类型"	DataType="string"	Length="10" IsRequire="Y"/> 
+			<Field No="5" FieldTag="Start_date" 	ValueSource="SelectSQL"	TableField="Start_date"	DefaultValue=""	Description="贷款发放日期"	DataType="string"	Length="8" /> 
+			<Field No="6" FieldTag="principal" 	ValueSource="SelectSQL"	TableField="principal"	DefaultValue=""	Description="贷款本金"	DataType="double" Length="18,2" IsRequire="Y"/> 
+			<Field No="7" FieldTag="currency" 	ValueSource="SelectSQL"	TableField="currency"	DefaultValue=""	Description="贷款币种"	DataType="string"	Length="3" IsRequire="Y" 
+				ReplaceSQL="select attribute2 from code_library where codeno = 'Currency' and itemno = ? and isinuse = '1'"/>
+			<Field No="8" FieldTag="Time_limit" 	ValueSource="SelectSQL"	TableField="Time_limit"	DefaultValue=""	Description="贷款期限"	DataType="int" Length="10" IsRequire="Y"/> 
+			<Field No="9" FieldTag="rate" 	ValueSource="SelectSQL"	TableField="rate"	DefaultValue=""	Description="贷款利率"	DataType="double"	Length="12,8" IsRequire="Y"/> 
+			<Field No="10" FieldTag="Outstanding_Principal" 	ValueSource="SelectSQL"	TableField="Outstanding_Principal"	DefaultValue=""	Description="剩余本金"	DataType="double" Length="18,2" IsRequire="Y"/> 
+			<Field No="11" FieldTag="Overdue_Principal" 	ValueSource="SelectSQL"	TableField="Overdue_Principal"	DefaultValue=""	Description="逾期本金"	DataType="double" Length="18,2" IsRequire="Y" /> 
+			<Field No="12" FieldTag="ODInterest" 	ValueSource="SelectSQL"	TableField="ODInterest"	DefaultValue=""	Description="欠还罚息"	DataType="double" Length="18,2" IsRequire="Y" /> 
+			<Field No="13" FieldTag="CompoundInterest" 	ValueSource="SelectSQL"	TableField="CompoundInterest"	DefaultValue=""	Description="欠还复利"	DataType="double" Length="18,2" IsRequire="Y" /> 
+			<Field No="14" FieldTag="Due_time" 	ValueSource="SelectSQL"	TableField="Due_time"	DefaultValue=""	Description="到期日"	DataType="string" Length="8" /> 
+			<Field No="15" FieldTag="Apply_status" 	ValueSource="SelectSQL"	TableField="Apply_status"	DefaultValue=""	Description="申请状态"	DataType="string" Length="1" IsRequire="Y" /> 
+			<Field No="16" FieldTag="apply_date" 	ValueSource="SelectSQL"	TableField="apply_date"	DefaultValue=""	Description="申请日期"	DataType="string" Length="8"/> 
+			<Field No="17" FieldTag="Account_no" 	ValueSource="SelectSQL"	TableField="Account_no"	DefaultValue=""	Description="还款账号"	DataType="string" Length="32" /> 
+			<Field No="18" FieldTag="Account_name" 	ValueSource="SelectSQL"	TableField="Account_name"	DefaultValue=""	Description="账户名称"	DataType="string" Length="60" /> 
+			<Field No="19" FieldTag="Addr_lang" 	ValueSource="SelectSQL"	TableField="Addr_lang"	DefaultValue=""	Description="地址显示语言类型"	DataType="string" Length="1" /> 
+			<Field No="20" FieldTag="country" 	ValueSource="SelectSQL"	TableField="country"	DefaultValue=""	Description="地址所属国家"	DataType="string" Length="3" 
+				ReplaceSQL="select attribute2 from code_library where codeno = 'CountryCode' and itemno = ? and isinuse ='1'" />  
+			<Field No="21" FieldTag="province" 	ValueSource="SelectSQL"	TableField="province"	DefaultValue=""	Description="地址所属省"	DataType="string" Length="3"  /> 
+			<Field No="22" FieldTag="Postcode" 	ValueSource="SelectSQL"	TableField="Postcode"	DefaultValue=""	Description="邮政编码"	DataType="string" Length="6" /> 
+			<Field No="23" FieldTag="Post_method" 	ValueSource="SelectSQL"	TableField="Post_method"	DefaultValue=""	Description="邮寄方式"	DataType="string" Length="2" /> 
+			<Field No="24" FieldTag="Addr_detail" 	ValueSource="SelectSQL"	TableField="Addr_detail"	DefaultValue=""	Description="地址详情"	DataType="string" Length="100" /> 
+			<Field No="25" FieldTag="SignOnline" 	ValueSource="SelectSQL"	TableField="SignOnline"	DefaultValue=""	Description="是否需要网上签约"	DataType="string" Length="1" /> 
+		</Message>
+		
+		<Message ID="cncyb_NetPreApprove_Req" Description="门户网站预审批">
+			<Field No="1" FieldTag="cell_phone" 	ValueSource="Default"	TableField=""	DefaultValue=""	Description="手机号码"	DataType="string"	Length="11" IsRequire="Y"/> 
+			<Field No="2" FieldTag="Apply_no" 	ValueSource="Default"	TableField=""	DefaultValue=""	Description="预审批编号"	DataType="string"	Length="20" IsRequire="Y"/> 
+		</Message>
+		
+		<Message ID="cncyb_NetPreApprove_Res" SelectSQL="" Description="门户网站预审批_响应">
+			<Field No="1" FieldTag="Apply_status" 	ValueSource="Default"	TableField=""	DefaultValue="#Constants.Apply_status"	Description="申请状态"	DataType="string"	Length="1" IsRequire="Y"/> 
+		</Message>
+		
+		<Message ID="cncyb_RepayPlan_Req" Description="还款计划查询">
+			<Field No="1" FieldTag="Load_no" 	ValueSource="Default"	TableField=""	DefaultValue=""	Description="贷款编号"	DataType="string" Length="20" IsRequire="Y"/> 
+			<Field No="2" FieldTag="deadline" 	ValueSource="Default"	TableField=""	DefaultValue=""	Description="截止日期"	DataType="string" Length="8" /> 
+			<Field No="3" FieldTag="Start_no" 	ValueSource="Default"	TableField=""	DefaultValue=""	Description="起始记录数"	DataType="int" Length="4" IsRequire="Y"/> 
+			<Field No="4" FieldTag="record_num" 	ValueSource="Default"	TableField=""	DefaultValue=""	Description="查询记录数"	DataType="int" Length="4" IsRequire="Y"/> 
+		</Message>
+		
+		<Message ID="cncyb_RepayPlan_Res" Description="还款计划查询响应">
+			<Field No="1" FieldTag="total_Installment" 	ValueSource="array" TableField="" DefaultValue="cncyb_RepayPlan_Res_Dtl" Description="总的期数"  DataType="int" 	Length="3" IsRequire="Y"/>
+			<Field No="2" FieldTag="Currency" 	ValueSource="Default"	TableField=""	DefaultValue="#Constants.Currency"	Description="币种"	DataType="string"	Length="3" ReplaceSQL="select attribute2 from code_library where codeno = 'Currency' and itemno = ?"/>
+			<Field No="3" FieldTag="Record_no" 	ValueSource="array" TableField="" DefaultValue="cncyb_RepayPlan_Res_Dtl" Description="记录数"  DataType="int" 	Length="3" IsRequire="Y"/>
+			<Field No="4" FieldTag="Plan_Array"  ValueSource="" TableField="" DefaultValue="" Description="还款计划明细"  DataType="array" ArrayName="cncyb_RepayPlan_Res_Dtl"	/>
+		</Message>
+		
+		<Message ID="cncyb_RepayPlan_Res_Dtl" 
+				SelectSQL=" select *
+							  from (select objectno,
+							               seqid Installment_No,
+							               replace(paydate, '/', '') Installment_date,
+							               trunc(sum(nvl(paycorpusamt, 0) + nvl(payinteamt, 0) +
+							                         nvl(payfineamt, 0) + nvl(paycompdinteamt, 0) +
+							                         nvl(actualpaycorpusamt, 0) -
+							                         nvl(actualpayinteamt, 0) - nvl(actualpayinteamt, 0) -
+							                         nvl(actualcompdinteamt, 0)),
+							                     2) overdue_amount,
+							               trunc(sum(nvl(paycorpusamt, 0)), 2) Installment_principal,
+							               trunc(sum(nvl(payinteamt, 0)), 2) Installment_interest,
+							               0 other_charge,
+							               trunc(sum(nvl(payfineamt, 0)), 2) Overdue_interest,
+							               trunc(sum(nvl(paycompdinteamt, 0)), 2) compound_interest,
+							               trunc(sum(nvl(actualpaycorpusamt, 0)), 2) Actpay_principal,
+							               trunc(sum(nvl(actualpayinteamt, 0)), 2) Actpay_interest,
+							               0 Actpay_charge,
+							               trunc(sum(nvl(actualfineamt, 0)), 2) Actpay_Overdue_interest,
+							               trunc(sum(nvl(actualcompdinteamt, 0)), 2) Actpay_compound_interest,
+							               trunc(sum(nvl(corpusbalance, 0)), 2) Outstanding_principal
+							          from acct_payment_schedule
+							         where finishdate is null
+							           and replace((select businessdate from acct_ploan_setup), '/', '') >
+							               to_char(to_number(replace(paydate, '/', '')) - 20000)
+							         group by objectno, seqid, paydate
+							         order by paydate) t"  
+				Description="还款计划查询响应详情">
+			<Field No="1" FieldTag="Installment_No" 	ValueSource="SelectSQL"	TableField="row_id"	DefaultValue=""	Description="期次"	DataType="int" Length="3" IsRequire="Y"/> 
+			<Field No="2" FieldTag="Installment_date" 	ValueSource="SelectSQL"	TableField="Installment_date"	DefaultValue=""	Description="应还日期"	DataType="string"	Length="8" IsRequire="Y"/> 
+			<Field No="3" FieldTag="overdue_amount" 	ValueSource="SelectSQL"	TableField="overdue_amount"	DefaultValue=""	Description="应还未还总金额"	DataType="double" Length="18,2" IsRequire="Y"/> 
+			<Field No="4" FieldTag="Installment_principal" 	ValueSource="SelectSQL"	TableField="Installment_principal"	DefaultValue=""	Description="应还本金"	DataType="double" Length="18,2" IsRequire="Y"/> 
+			<Field No="5" FieldTag="Installment_interest" 	ValueSource="SelectSQL"	TableField="Installment_interest"	DefaultValue=""	Description="应还利息"	DataType="double" Length="18,2" IsRequire="Y"/> 
+			<Field No="6" FieldTag="other_charge" 	ValueSource="SelectSQL"	TableField="other_charge"	DefaultValue=""	Description="应还费用"	DataType="double" Length="18,2" IsRequire="Y"/> 
+			<Field No="7" FieldTag="Overdue_interest" 	ValueSource="SelectSQL"	TableField="Overdue_interest"	DefaultValue=""	Description="应还罚息"	DataType="double" Length="18,2" IsRequire="Y"/> 
+			<Field No="8" FieldTag="compound_interest" 	ValueSource="SelectSQL"	TableField="compound_interest"	DefaultValue=""	Description="应还复利"	DataType="double" Length="18,2" IsRequire="Y"/> 
+			<Field No="9" FieldTag="Actpay_principal" 	ValueSource="SelectSQL"	TableField="Actpay_principal"	DefaultValue=""	Description="实还本金"	DataType="double" Length="18,2" IsRequire="Y"/> 
+			<Field No="10" FieldTag="Actpay_interest" 	ValueSource="SelectSQL"	TableField="Actpay_interest"	DefaultValue=""	Description="实还利息"	DataType="double" Length="18,2" IsRequire="Y"/> 
+			<Field No="11" FieldTag="Actpay_charge" 	ValueSource="SelectSQL"	TableField="Actpay_charge"	DefaultValue=""	Description="实还费用"	DataType="double" Length="18,2" IsRequire="Y"/> 
+			<Field No="12" FieldTag="Actpay_Overdue_interest" 	ValueSource="SelectSQL"	TableField="Actpay_Overdue_interest"	DefaultValue=""	Description="实还罚息"	DataType="double" Length="18,2" IsRequire="Y"/> 
+			<Field No="13" FieldTag="Actpay_compound_interest" 	ValueSource="SelectSQL"	TableField="Actpay_compound_interest"	DefaultValue=""	Description="实还复利"	DataType="double" Length="18,2" IsRequire="Y"/> 
+			<Field No="14" FieldTag="Outstanding_principal" 	ValueSource="SelectSQL"	TableField="Outstanding_principal"	DefaultValue=""	Description="剩余本金"	DataType="double" Length="18,2" IsRequire="Y"/> 
+		</Message>
+		
+		<Message ID="cncyb_RepayInfo_Req" Description="还款记录查询">
+			<Field No="1" FieldTag="Load_no" 	ValueSource="Default"	TableField=""	DefaultValue=""	Description="贷款编号"	DataType="string" Length="20" IsRequire="Y"/> 
+			<Field No="2" FieldTag="Start_date" 	ValueSource="Default"	TableField=""	DefaultValue=""	Description="查询起始日期"	DataType="string" Length="8" IsRequire="Y"/> 
+			<Field No="3" FieldTag="End_date" 	ValueSource="Default"	TableField=""	DefaultValue=""	Description="查询终止日期"	DataType="string" Length="8" IsRequire="Y"/> 
+			<Field No="4" FieldTag="Start_no" 	ValueSource="Default"	TableField=""	DefaultValue=""	Description="起始记录数"	DataType="int" Length="4" IsRequire="Y"/> 
+			<Field No="5" FieldTag="Record_num" 	ValueSource="Default"	TableField=""	DefaultValue=""	Description="查询记录数"	DataType="int" Length="4" IsRequire="Y"/> 
+		</Message>
+		
+		<Message ID="cncyb_RepayInfo_Res" Description="还款记录查询">
+			<Field No="1" FieldTag="total_Installment" 	ValueSource="array" TableField="" DefaultValue="cncyb_RepayInfo_Res_dtl" Description="总的期数"  DataType="int" 	Length="3" IsRequire="Y"/>
+			<Field No="2" FieldTag="Currency" 	ValueSource="Default"	TableField=""	DefaultValue="#Constants.Currency"	Description="币种"	DataType="string"	Length="3" ReplaceSQL="select attribute2 from code_library where codeno = 'Currency' and itemno = ?"/>
+			<Field No="3" FieldTag="Record_no" 	ValueSource="array" TableField="" DefaultValue="cncyb_RepayInfo_Res_dtl" Description="记录数"  DataType="int" 	Length="3" IsRequire="Y"/>
+			<Field No="4" FieldTag="dtl_array"  ValueSource="" TableField="" DefaultValue="" Description="还款记录明细"  DataType="array" ArrayName="cncyb_RepayInfo_Res_dtl"	/>
+		</Message>
+		
+		<Message ID="cncyb_RepayInfo_Res_dtl" 
+				SelectSQL=" select *
+							  from (select p.objectno,
+							               p.seqid as Installment_No,
+							               replace(l.actualpaydate, '/', '') Actpay_date,
+							               replace(l.paydate, '/', '') Installment_date,
+							               trunc(nvl(p.paycorpusamt, 0), 2) Installment_principal,
+							               trunc(nvl(p.payinteamt, 0), 2) Installment_interest,
+							               0 other_charge,
+							               trunc(nvl(p.payfineamt, 0), 2) Overdue_interest,
+							               trunc(nvl(p.paycompdinteamt, 0), 2) compound_interest,
+							               trunc(nvl(l.ACTUALPAYCORPUSAMT, 0), 2) Actpay_principal,
+							               trunc(nvl(l.ACTUALPAYINTEAMT, 0), 2) Actpay_interest,
+							               0 as Actpay_charge,
+							               trunc(nvl(l.ACTUALFINEAMT, 0), 2) Actpay_Overdue_interest,
+							               trunc(nvl(l.ACTUALCOMPDINTEAMT, 0), 2) Actpay_compound_interest,
+							               l.LOANSERIALNO as LOANSERIALNO,
+                               			   p.corpusbalance as Outstanding_principal,
+			                               trunc(nvl(l.ACTUALPAYCORPUSAMT, 0) + nvl(l.ACTUALPAYINTEAMT, 0)
+			                               + nvl(l.ACTUALFINEAMT, 0) + nvl(l.ACTUALCOMPDINTEAMT, 0), 2) as Actpay_total
+							          from Acct_Payment_Log l, acct_payment_schedule p
+							         where l.psserialno = p.serialno
+							           and p.objecttype = 'Loan'
+							         order by l.Paydate) t "	
+				Description="还款记录查询详情">
+			<Field No="1" FieldTag="Installment_No" 	ValueSource="SelectSQL"	TableField="row_id"	DefaultValue=""	Description="期次"	DataType="int" Length="3" IsRequire="Y"/> 
+			<Field No="2" FieldTag="Installment_date" 	ValueSource="SelectSQL"	TableField="Installment_date"	DefaultValue=""	Description="应还日期"	DataType="string"	Length="8" IsRequire="Y"/> 
+			<Field No="3" FieldTag="Actpay_date" 	ValueSource="SelectSQL"	TableField="Actpay_date"	DefaultValue=""	Description="实际还清日期"	DataType="string"	Length="8" />  
+			<Field No="4" FieldTag="Installment_principal" 	ValueSource="SelectSQL"	TableField="Installment_principal"	DefaultValue=""	Description="应还本金"	DataType="double" Length="18,2" IsRequire="Y"/> 
+			<Field No="5" FieldTag="Installment_interest" 	ValueSource="SelectSQL"	TableField="Installment_interest"	DefaultValue=""	Description="应还利息"	DataType="double" Length="18,2" IsRequire="Y"/> 
+			<Field No="6" FieldTag="other_charge" 	ValueSource="SelectSQL"	TableField="other_charge"	DefaultValue=""	Description="应还费用"	DataType="double" Length="18,2" IsRequire="Y"/> 
+			<Field No="7" FieldTag="Overdue_interest" 	ValueSource="SelectSQL"	TableField="Overdue_interest"	DefaultValue=""	Description="应还罚息"	DataType="double" Length="18,2" IsRequire="Y"/> 
+			<Field No="8" FieldTag="compound_interest" 	ValueSource="SelectSQL"	TableField="compound_interest"	DefaultValue=""	Description="应还复利"	DataType="double" Length="18,2" IsRequire="Y"/> 
+			<Field No="9" FieldTag="Actpay_principal" 	ValueSource="SelectSQL"	TableField="Actpay_principal"	DefaultValue=""	Description="实还本金"	DataType="double" Length="18,2" IsRequire="Y"/> 
+			<Field No="10" FieldTag="Actpay_interest" 	ValueSource="SelectSQL"	TableField="Actpay_interest"	DefaultValue=""	Description="实还利息"	DataType="double" Length="18,2" IsRequire="Y"/> 
+			<Field No="11" FieldTag="Actpay_charge" 	ValueSource="SelectSQL"	TableField="Actpay_charge"	DefaultValue=""	Description="实还费用"	DataType="double" Length="18,2" IsRequire="Y"/> 
+			<Field No="12" FieldTag="Actpay_Overdue_interest" 	ValueSource="SelectSQL"	TableField="Actpay_Overdue_interest"	DefaultValue=""	Description="实还罚息"	DataType="double" Length="18,2" IsRequire="Y"/> 
+			<Field No="13" FieldTag="Actpay_compound_interest" 	ValueSource="SelectSQL"	TableField="Actpay_compound_interest"	DefaultValue=""	Description="实还复利"	DataType="double" Length="18,2" IsRequire="Y"/> 
+			<Field No="14" FieldTag="Outstanding_principal" 	ValueSource="SelectSQL"	TableField="Outstanding_principal"	DefaultValue=""	Description="剩余本金"	DataType="double" Length="18,2" IsRequire="Y"/> 
+			<Field No="15" FieldTag="Actpay_total" 	ValueSource="SelectSQL"	TableField="Actpay_total"	DefaultValue=""	Description="实还金额合计"	DataType="double" Length="18,2" IsRequire="Y"/> 
+		</Message>
+		
+		<Message ID="cncyb_CreditSelfHelf_Req" Description="质押贷款自助申请">
+			<Field No="1" FieldTag="txn_ref" 	ValueSource="Default"	TableField=""	DefaultValue=""	Description="交易编号"	DataType="string"	Length="12" IsRequire="Y"/> 
+			<Field No="2" FieldTag="cust_no" 	ValueSource="Default"	TableField=""	DefaultValue=""	Description="客户号"	DataType="string"	Length="20" /> 
+			<Field No="3" FieldTag="ID_Type" 	ValueSource="Default"	TableField=""	DefaultValue=""	Description="证件类型"	DataType="string"	Length="3" IsRequire="Y" ReplaceSQL="select itemno from code_library where codeno = 'CertType' and attribute2 = ? and isinuse = '1'"/>
+			<Field No="4" FieldTag="Cert_No" 	ValueSource="Default"	TableField=""	DefaultValue=""	Description="证件号码"	DataType="string"	Length="25" IsRequire="Y" /> 
+			<Field No="5" FieldTag="Issued_Country" 	ValueSource="Default"	TableField=""	DefaultValue=""	Description="发证国家"	DataType="string"	Length="3" IsRequire="Y" 
+				ReplaceSQL="select itemno from code_library where codeno = 'CountryCode' and attribute2 = ? and isinuse ='1'" /> 
+			<Field No="6" FieldTag="Employment_Type" 	ValueSource="Default"	TableField=""	DefaultValue=""	Description="雇佣类型"	DataType="string"	Length="1" IsRequire="Y"/> 
+			<Field No="7" FieldTag="position" 	ValueSource="Default"	TableField=""	DefaultValue=""	Description="职位"	DataType="string"	Length="2" IsRequire="Y"/> 
+			<Field No="8" FieldTag="comp_nature" 	ValueSource="Default"	TableField=""	DefaultValue=""	Description="单位性质"	DataType="string"	Length="2" /> 
+			<Field No="9" FieldTag="Employment_Name" 	ValueSource="Default"	TableField=""	DefaultValue=""	Description="单位名称"	DataType="string"	Length="60" /> 
+			<Field No="10" FieldTag="JoinDate" 	ValueSource="Default"	TableField=""	DefaultValue=""	Description="入职日期"	DataType="string"	Length="8" IsRequire="Y" ReplaceSQL="select to_char(to_date(?,'yyyymmdd'),'yyyy/mm/dd') from dual"/> 
+			<Field No="11" FieldTag="Loan_amount" 	ValueSource="Default"	TableField=""	DefaultValue=""	Description="贷款金额"	DataType="double" Length="18,2" IsRequire="Y"/> 
+			<Field No="12" FieldTag="currency" 	ValueSource="Default"	TableField=""	DefaultValue=""	Description="币种"	DataType="string"	Length="3" IsRequire="Y"
+				ReplaceSQL=" select  itemno from code_library where codeno = 'Currency' and  attribute2 = ? and isinuse = '1' " />
+			<Field No="13" FieldTag="Time_limit" 	ValueSource="Default"	TableField=""	DefaultValue=""	Description="贷款期限"	DataType="int"	Length="10" /> 
+			<Field No="14" FieldTag="Maturity" 	ValueSource="Default"	TableField=""	DefaultValue=""	Description="贷款到期日"	DataType="string"	Length="8" ReplaceSQL="select to_char(to_date(?,'yyyymmdd'),'yyyy/mm/dd') from dual"/> 
+			<Field No="15" FieldTag="Countrycode" 	ValueSource="Default"	TableField=""	DefaultValue=""	Description="手机国际区号"	DataType="string"	Length="3" /> 
+			<Field No="16" FieldTag="Contract_phone" 	ValueSource="Default"	TableField=""	DefaultValue=""	Description="联系手机"	DataType="string"	Length="11" IsRequire="Y"/> 
+			<Field No="17" FieldTag="Loan_purpose" 	ValueSource="Default"	TableField=""	DefaultValue=""	Description="贷款用途"	DataType="string"	Length="3" IsRequire="Y"/> 
+			<Field No="18" FieldTag="PayAccountNo" 	ValueSource="Default"	TableField=""	DefaultValue=""	Description="还款账号"	DataType="string"	Length="32" IsRequire="Y"/> 
+			<Field No="19" FieldTag="PayAccountName" 	ValueSource="Default"	TableField=""	DefaultValue=""	Description="还款账户名称"	DataType="string"	Length="60" IsRequire="Y"/> 
+			<Field No="20" FieldTag="SignOnline" 	ValueSource="Default"	TableField=""	DefaultValue=""	Description="是否需要网上签约"	DataType="string"	Length="1" IsRequire="Y"/> 
+			<Field No="21" FieldTag="payment_method" 	ValueSource="Default"	TableField=""	DefaultValue=""	Description="还款方式"	DataType="string"	Length="10" IsRequire="Y"/> 
+			<Field No="22" FieldTag="Record_num" 	ValueSource="array" TableField="" DefaultValue="cncyb_CreditSelfHelf_Req_Bill" Description="记录数"  DataType="int" 	Length="3" IsRequire="Y"/>
+			<Field No="23" FieldTag="Bill_Array"  ValueSource="" TableField="" DefaultValue="" Description="电子存单信息"  DataType="array" ArrayName="cncyb_CreditSelfHelf_Req_Bill"	/>
+		</Message>
+		
+		<Message ID="cncyb_CreditSelfHelf_Req_Bill" Description="质押贷款自助申请存单信息">
+			<Field No="1" FieldTag="bank_code" 	ValueSource="Default"	TableField=""	DefaultValue=""	Description="银行代码"	DataType="string"	Length="6" IsRequire="Y"/> 
+			<Field No="2" FieldTag="Account_no" 	ValueSource="Default"	TableField=""	DefaultValue=""	Description="账号"	DataType="string"	Length="32" IsRequire="Y"/> 
+			<Field No="3" FieldTag="Receipt_no" 	ValueSource="Default"	TableField=""	DefaultValue=""	Description="存单编号"	DataType="string"	Length="8" IsRequire="Y"/> 
+			<Field No="4" FieldTag="Account_name" 	ValueSource="Default"	TableField=""	DefaultValue=""	Description="账户名称"	DataType="string"	Length="60" IsRequire="Y"/> 
+			<Field No="5" FieldTag="Receipt_currency" 	ValueSource="Default"	TableField=""	DefaultValue=""	Description="存单币种"	DataType="string"	Length="3" IsRequire="Y"
+				ReplaceSQL=" select  itemno from code_library where codeno = 'Currency' and attribute2 = ? and isinuse = '1' " />			
+			<Field No="6" FieldTag="Receipt_amount" 	ValueSource="Default"	TableField=""	DefaultValue=""	Description="存单金额"	DataType="double" Length="18,2" IsRequire="Y"/> 
+			<Field No="7" FieldTag="Start_date" 	ValueSource="Default"	TableField=""	DefaultValue=""	Description="存单起息日"	DataType="string"	Length="8" ReplaceSQL="select to_char(to_date(?,'yyyymmdd'),'yyyy/mm/dd') from dual"/>
+			<Field No="8" FieldTag="End_date" 	ValueSource="Default"	TableField=""	DefaultValue=""	Description="存单到期日"	DataType="string"	Length="8" ReplaceSQL="select to_char(to_date(?,'yyyymmdd'),'yyyy/mm/dd') from dual"/>
+		</Message>
+		
+		<Message ID="cncyb_CreditSelfHelf_Res" Description="质押贷款自助申请响应">
+			<Field No="1" FieldTag="txn_ref" 	ValueSource="Default"	TableField=""	DefaultValue="#Constants.txn_ref"	Description="交易编号"	DataType="string"	Length="12" IsRequire="Y"/> 
+			<Field No="2" FieldTag="impawn_appno" 	ValueSource="Default"	TableField=""	DefaultValue="#Constants.impawn_appno"	Description="质押贷款申请编号"	DataType="string"	Length="20" IsRequire="Y"/> 
+		</Message>
+		
+		<Message ID="cncyb_ChangeRepayNo_Req" Description="变更还款账号">
+			<Field No="1" FieldTag="txn_ref" 	ValueSource="Default"	TableField=""	DefaultValue=""	Description="交易编号"	DataType="string"	Length="12" IsRequire="Y"/> 
+			<Field No="1" FieldTag="Loan_no" 	ValueSource="Default"	TableField=""	DefaultValue=""	Description="贷款编号"	DataType="string"	Length="20" IsRequire="Y"/> 
+			<Field No="1" FieldTag="Revised_account_no" 	ValueSource="Default"	TableField=""	DefaultValue=""	Description="新还款账号"	DataType="string"	Length="32" IsRequire="Y"/> 
+			<Field No="1" FieldTag="Account_name" 	ValueSource="Default"	TableField=""	DefaultValue=""	Description="账户名称"	DataType="string"	Length="60" IsRequire="Y"/> 
+		</Message>
+		
+		<Message ID="cncyb_ChangeRepayNo_Res" Description="变更还款账号响应">
+			<Field No="1" FieldTag="txn_ref" 	ValueSource="Default"	TableField=""	DefaultValue="#Constants.txn_ref"	Description="交易编号"	DataType="string"	Length="12" IsRequire="Y"/> 
+		</Message>
+		
+		<Message ID="cncyb_ChangeAddr_Req" Description="贷款地址变更">
+			<Field No="1" FieldTag="txn_ref" 	ValueSource="Default"	TableField=""	DefaultValue=""	Description="交易编号"	DataType="string"	Length="12" IsRequire="Y"/> 
+			<Field No="2" FieldTag="Loan_no" 	ValueSource="Default"	TableField=""	DefaultValue=""	Description="贷款编号"	DataType="string"	Length="20" IsRequire="Y"/> 
+			<Field No="3" FieldTag="Addr_lang" 	ValueSource="Default"	TableField=""	DefaultValue=""	Description="地址显示语言类型"	DataType="string"	Length="1" IsRequire="Y" ReplaceSQL="select '0'||? from dual"/> 
+			<Field No="4" FieldTag="country" 	ValueSource="Default"	TableField=""	DefaultValue=""	Description="地址所属国家"	DataType="string"	Length="3" IsRequire="Y" ReplaceSQL="select itemno from code_library where codeno = 'CountryCode' and attribute2 = ? and isinuse ='1'" /> 
+			<Field No="5" FieldTag="province" 	ValueSource="Default"	TableField=""	DefaultValue=""	Description="地址所属省"	DataType="string"	Length="3" IsRequire="Y"/> 
+			<Field No="6" FieldTag="Postcode" 	ValueSource="Default"	TableField=""	DefaultValue=""	Description="邮政编码"	DataType="string"	Length="6" IsRequire="Y"/> 
+			<Field No="7" FieldTag="Addr_detail" 	ValueSource="Default"	TableField=""	DefaultValue=""	Description="地址详情"	DataType="string"	Length="100" IsRequire="Y"/> 
+		</Message>
+		
+		<Message ID="cncyb_ChangeAddr_Res" Description="贷款地址变更响应">
+			<Field No="1" FieldTag="txn_ref" 	ValueSource="Default"	TableField=""	DefaultValue="#Constants.txn_ref"	Description="交易编号"	DataType="string"	Length="12" IsRequire="Y"/> 
+		</Message>
+		
+		<Message ID="cncyb_ChangePhone_Req" Description="接收短信手机号码变更">
+			<Field No="1" FieldTag="cust_no" 	ValueSource="Default"	TableField=""	DefaultValue=""	Description="客户号"	DataType="string"	Length="20" /> 
+			<Field No="2" FieldTag="ID_type" 	ValueSource="Default"	TableField=""	DefaultValue=""	Description="证件类型"	DataType="string"	Length="3"/>  
+			<Field No="3" FieldTag="Customer_id" 	ValueSource="Default"	TableField=""	DefaultValue=""	Description="证件号码"	DataType="string"	Length="25" />  
+			<Field No="4" FieldTag="Issued_country" 	ValueSource="Default"	TableField=""	DefaultValue=""	Description="发证国家"	DataType="string"	Length="3" 
+				ReplaceSQL="select itemno from code_library where codeno = 'CountryCode' and attribute2 = ? and isinuse ='1'" /> 
+			
+			<Field No="5" FieldTag="Phone_number" 	ValueSource="Default"	TableField=""	DefaultValue=""	Description="手机号码"	DataType="string"	Length="11" IsRequire="Y"/> 
+			<Field No="6" FieldTag="Countrycode" 	ValueSource="Default"	TableField=""	DefaultValue=""	Description="手机国际区号"	DataType="string"	Length="3" IsRequire="Y"/>
+		</Message>
+		
+		<Message ID="cncyb_ChangePhone_Res" Description="接收短信手机号码变更响应">
+			<Field No="1" FieldTag="Feedback" 	ValueSource="Default"	TableField=""	DefaultValue="#Constants.Feedback"	Description="反馈信息"	DataType="string"	Length="100" /> 
+		</Message>
+		
+		<Message ID="cncyb_Grant_Req" Description="质押贷款网上签约放款">
+			<Field No="1" FieldTag="txn_ref" 	ValueSource="Default"	TableField=""	DefaultValue=""	Description="交易编号"	DataType="string"	Length="12" IsRequire="Y"/> 
+			<Field No="2" FieldTag="Apply_no" 	ValueSource="Default"	TableField=""	DefaultValue=""	Description="申请编号"	DataType="string"	Length="20" IsRequire="Y"/> 
+			<Field No="3" FieldTag="Opera_code" 	ValueSource="Default"	TableField=""	DefaultValue=""	Description="操作代码"	DataType="string"	Length="1" IsRequire="Y"/> 
+			<Field No="4" FieldTag="Cust_suggest" 	ValueSource="Default"	TableField=""	DefaultValue=""	Description="客户意见"	DataType="string"	Length="200" /> 
+		</Message>
+		
+		<Message ID="cncyb_Grant_Res" Description="质押贷款网上签约放款响应">
+			<Field No="1" FieldTag="txn_ref" 	ValueSource="Default"	TableField=""	DefaultValue="#Constants.txn_ref"	Description="交易编号"	DataType="string"	Length="12" IsRequire="Y"/> 
+			<Field No="2" FieldTag="Loan_no" 	ValueSource="Default"	TableField=""	DefaultValue="#Constants.Loan_no"	Description="贷款编号"	DataType="string"	Length="20" /> 
+		</Message>
+	</MessageList>
+	
+	<TransactionList>
+		<Transaction ID="cncyb_PreApprove" SERVICE_CODE="SYRL001"
+			TransDescription="预审批" 
+			LinkedSystem="CNCYB" 
+			TransRole="SERVER"
+			DeployInfo="S_SK_CNCYB" 
+			SysHeadFlag="Y" 
+			SysHeadReq="CNCYB_Syshead_Req"
+			SysHeadRes="CNCYB_Syshead_Res" 
+			InputMsgr="CNCYB_PreApprove_Req"
+			ResponseMsgr="CNCYB_PreApprove_Res" 
+			SendCharSet="GBK" 
+			RecvCharSet="GBK" 
+			BuildClass="com.amarsoft.oci.parser.impl.CNCYBParser"
+			BusiClass="com.amarsoft.oci.comm.impl.server.CNCYBResponser" />
+			
+		<Transaction ID="cncyb_ChangeRepayNo" SERVICE_CODE="SYRL002"
+			TransDescription="还款帐号变更" 
+			LinkedSystem="CNCYB" 
+			TransRole="SERVER"
+			DeployInfo="S_SK_CNCYB" 
+			SysHeadFlag="Y" 
+			SysHeadReq="CNCYB_Syshead_Req"
+			SysHeadRes="CNCYB_Syshead_Res" 
+			InputMsgr="cncyb_ChangeRepayNo_Req"
+			ResponseMsgr="cncyb_ChangeRepayNo_Res" 
+			SendCharSet="GBK" 
+			RecvCharSet="GBK" 
+			BuildClass="com.amarsoft.oci.parser.impl.CNCYBParser"
+			BusiClass="com.amarsoft.oci.comm.impl.server.CNCYBResponser"  />
+			
+		<Transaction ID="cncyb_ChangeAddr" SERVICE_CODE="SYRL003"
+			TransDescription="还款地址变更" 
+			LinkedSystem="CNCYB" 
+			TransRole="SERVER"
+			DeployInfo="S_SK_CNCYB" 
+			SysHeadFlag="Y" 
+			SysHeadReq="CNCYB_Syshead_Req"
+			SysHeadRes="CNCYB_Syshead_Res" 
+			InputMsgr="cncyb_ChangeAddr_Req"
+			ResponseMsgr="cncyb_ChangeAddr_Res"
+			SendCharSet="GBK" 
+			RecvCharSet="GBK"  
+			BuildClass="com.amarsoft.oci.parser.impl.CNCYBParser"
+			BusiClass="com.amarsoft.oci.comm.impl.server.CNCYBResponser"/>
+			
+		<Transaction ID="cncyb_Grant" SERVICE_CODE="SYRL004"
+			TransDescription="质押贷款网上签约放款" 
+			LinkedSystem="CNCYB" 
+			TransRole="SERVER"
+			DeployInfo="S_SK_CNCYB" 
+			SysHeadFlag="Y" 
+			SysHeadReq="CNCYB_Syshead_Req"
+			SysHeadRes="CNCYB_Syshead_Res" 
+			InputMsgr="cncyb_Grant_Req"
+			ResponseMsgr="cncyb_Grant_Res" 
+			SendCharSet="GBK" 
+			RecvCharSet="GBK" 
+			BuildClass="com.amarsoft.oci.parser.impl.CNCYBParser"
+			BusiClass="com.amarsoft.oci.comm.impl.server.CNCYBResponser"/>
+			
+		<Transaction ID="cncyb_NetPreApprove" SERVICE_CODE="SYRL005"
+			TransDescription="门户网站预审批" 
+			LinkedSystem="CNCYB" 
+			TransRole="SERVER"
+			DeployInfo="S_SK_CNCYB" 
+			SysHeadFlag="Y" 
+			SysHeadReq="CNCYB_Syshead_Req"
+			SysHeadRes="CNCYB_Syshead_Res" 
+			InputMsgr="cncyb_NetPreApprove_Req"
+			ResponseMsgr="cncyb_NetPreApprove_Res" 
+			SendCharSet="GBK" 
+			RecvCharSet="GBK" 
+			BuildClass="com.amarsoft.oci.parser.impl.CNCYBParser"
+			BusiClass="com.amarsoft.oci.comm.impl.server.CNCYBResponser" />
+			
+		<Transaction ID="cncyb_QueryCredit" SERVICE_CODE="SYRL006"
+			TransDescription="个贷查询" 
+			LinkedSystem="CNCYB" 
+			TransRole="SERVER"
+			DeployInfo="S_SK_CNCYB" 
+			SysHeadFlag="Y" 
+			SysHeadReq="CNCYB_Syshead_Req"
+			SysHeadRes="CNCYB_Syshead_Res" 
+			InputMsgr="Cncyb_QueryCredit_Req"
+			ResponseMsgr="Cncyb_QueryCredit_Res"
+			SendCharSet="GBK" 
+			RecvCharSet="GBK"  
+			BuildClass="com.amarsoft.oci.parser.impl.CNCYBParser"
+			BusiClass="com.amarsoft.oci.comm.impl.server.CNCYBResponser" />
+			
+		<Transaction ID="cncyb_RepayPlan" SERVICE_CODE="SYRL007"
+			TransDescription="还款计划查询" 
+			LinkedSystem="CNCYB" 
+			TransRole="SERVER"
+			DeployInfo="S_SK_CNCYB" 
+			SysHeadFlag="Y" 
+			SysHeadReq="CNCYB_Syshead_Req"
+			SysHeadRes="CNCYB_Syshead_Res" 
+			InputMsgr="cncyb_RepayPlan_Req"
+			ResponseMsgr="cncyb_RepayPlan_Res" 
+			SendCharSet="GBK" 
+			RecvCharSet="GBK" 
+			BuildClass="com.amarsoft.oci.parser.impl.CNCYBParser"
+			BusiClass="com.amarsoft.oci.comm.impl.server.CNCYBResponser" />
+			
+		<Transaction ID="cncyb_RepayInfo" SERVICE_CODE="SYRL008"
+			TransDescription="还款记录查询" 
+			LinkedSystem="CNCYB" 
+			TransRole="SERVER"
+			DeployInfo="S_SK_CNCYB" 
+			SysHeadFlag="Y" 
+			SysHeadReq="CNCYB_Syshead_Req"
+			SysHeadRes="CNCYB_Syshead_Res" 
+			InputMsgr="cncyb_RepayInfo_Req"
+			ResponseMsgr="cncyb_RepayInfo_Res" 
+			SendCharSet="GBK" 
+			RecvCharSet="GBK" 
+			BuildClass="com.amarsoft.oci.parser.impl.CNCYBParser"
+			BusiClass="com.amarsoft.oci.comm.impl.server.CNCYBResponser" />
+			
+		<Transaction ID="cncyb_CreditSelfHelf" SERVICE_CODE="SYRL009"
+			TransDescription="质押贷款自助申请" 
+			LinkedSystem="CNCYB" 
+			TransRole="SERVER"
+			DeployInfo="S_SK_CNCYB" 
+			SysHeadFlag="Y" 
+			SysHeadReq="CNCYB_Syshead_Req"
+			SysHeadRes="CNCYB_Syshead_Res" 
+			InputMsgr="cncyb_CreditSelfHelf_Req"
+			ResponseMsgr="cncyb_CreditSelfHelf_Res" 
+			SendCharSet="GBK" 
+			RecvCharSet="GBK" 
+			BuildClass="com.amarsoft.oci.parser.impl.CNCYBParser"
+			BusiClass="com.amarsoft.oci.comm.impl.server.CNCYBResponser" />
+			
+		<Transaction ID="cncyb_ChangePhone" SERVICE_CODE="SYRL010"
+			TransDescription="接收短信手机号码变更" 
+			LinkedSystem="CNCYB" 
+			TransRole="SERVER"
+			DeployInfo="S_SK_CNCYB" 
+			SysHeadFlag="Y" 
+			SysHeadReq="CNCYB_Syshead_Req"
+			SysHeadRes="CNCYB_Syshead_Res" 
+			InputMsgr="cncyb_ChangePhone_Req"
+			ResponseMsgr="cncyb_ChangePhone_Res" 
+			SendCharSet="GBK" 
+			RecvCharSet="GBK" 
+			BuildClass="com.amarsoft.oci.parser.impl.CNCYBParser"
+			BusiClass="com.amarsoft.oci.comm.impl.server.CNCYBResponser" />
+	</TransactionList>
+</AppInstant>

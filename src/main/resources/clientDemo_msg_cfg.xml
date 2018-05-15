@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="GBK"?>
+<AppInstant>
+    <MessageList>
+
+        <Message ID="CNDS_CUSTOMER_INFO_REQ" Description="客户信息查询请求" RootElementTag="body">
+            <Field FieldTag="CUSID" ValueSource="Default" TableField="" DefaultValue="#Constants.CUSID"
+                   Description="客户号" DataType="string" Length="30"/>
+        </Message>
+
+        <Message ID="CNDS_CUSTOMER_INFO_RES" Description="客户信息查询响应" RootElementTag="body">
+            <Field FieldTag="CUSID" ValueSource="Default" TableField="" DefaultValue="" Description="客户号"
+                   DataType="string" Length="30"/>
+            <Field FieldTag="CUSKEY" ValueSource="Default" TableField="" DefaultValue="" Description="客户基本信息"
+                   DataType="object" ObjectName="CNDS_CUSTOMER_BASIC">
+                <Message>
+                    <Field No="1" FieldTag="ACCOUNTNO" ValueSource="Default" DefaultValue="" Description="账号"
+                           DataType="string" Length="30" IsRequire="N"/>
+                    <Field No="2" FieldTag="STATUS" ValueSource="Default" DefaultValue="" Description="状态"
+                           DataType="string" Length="10" IsRequire="N"/>
+                </Message>
+            </Field>
+            <Field FieldTag="Record_no" ValueSource="array" TableField="select * from t_user"
+                   Description="记录数" DataType="array" Length="3" IsRequire="Y">
+                <Message>
+                    <Field No="1" FieldTag="ACCOUNTNO" ValueSource="Default" DefaultValue="#{}" Description="账号"
+                           DataType="string" Length="30" IsRequire="N"/>
+                    <Field No="2" FieldTag="STATUS" ValueSource="Default" DefaultValue="${}" Description="状态"
+                           DataType="string" Length="10" IsRequire="N"/>
+                </Message>
+            </Field>
+            <Field FieldTag="cus_Array" ValueSource="" TableField="" DefaultValue="" Description="客户收入状况"
+                   DataType="array" ArrayName="CNDS_CUSTOMER_INCOMOE"/>
+        </Message>
+    </MessageList>
+
+    <TransactionList>
+        <Transaction ID="DEXPRE_TRANS_CLIENT1" SERVICE_CODE="S001"
+                     TransDescription="Dexpre client sample"
+                     LinkedSystem="LOCAL"
+                     TransRole="CLIENT"
+                     DeployID="C_SK_DEMO1"
+                     OutboundMsgr="CNDS_SYS_HEAD_REQ,CNDS_FEE_REQ"
+                     InboundMsgr="CNDS_SYS_HEAD_RES,CNDS_FEE_RES"
+                     SendCharSet="GBK"
+                     RecvCharSet="GBK"
+                     RootElementTag="transaction"
+                     BuildType="xml"
+        />
+
+        <Transaction ID="DEXPRE_TRANS_CLIENT2" SERVICE_CODE="S002"
+                     TransDescription="Dexpre client sample2"
+                     LinkedSystem="LOCAL"
+                     TransRole="CLIENT"
+                     DeployID="C_SK_DEMO1"
+                     OutboundMsgr="CNDS_SYS_HEAD_REQ,CNDS_CUSTOMER_INFO_REQ"
+                     InboundMsgr="CNDS_SYS_HEAD_RES,CNDS_CUSTOMER_INFO_RES"
+                     SendCharSet="GBK"
+                     RecvCharSet="GBK"
+                     RootElementTag="transaction"
+                     BuildType="xml"
+        />
+
+        <Transaction ID="DEXPRE_TRANS_CLIENT3" SERVICE_CODE="S003"
+                     TransDescription="Dexpre client sample3"
+                     LinkedSystem="LOCAL"
+                     TransRole="CLIENT"
+                     DeployID="C_SK_DEMO2"
+                     OutboundMsgr="#LENGTH{5},CNDS_SYS_HEAD_REQ,CNDS_FEE_REQ"
+                     InboundMsgr="#LENGTH{5},CNDS_SYS_HEAD_RES,CNDS_FEE_RES"
+                     SendCharSet="GBK"
+                     RecvCharSet="GBK"
+                     RootElementTag="transaction"
+                     BuildType="fixsize"
+        />
+
+        <Transaction ID="DEXPRE_TRANS_CLIENT4" SERVICE_CODE="S004"
+                     TransDescription="Dexpre client sample4"
+                     LinkedSystem="LOCAL"
+                     TransRole="CLIENT"
+                     DeployID="C_SK_DEMO2"
+                     OutboundMsgr="#LENGTH{5},CNDS_SYS_HEAD_REQ,CNDS_CUSTOMER_INFO_REQ"
+                     InboundMsgr="#LENGTH{5},CNDS_SYS_HEAD_RES,CNDS_CUSTOMER_INFO_RES"
+                     SendCharSet="GBK"
+                     RecvCharSet="GBK"
+                     RootElementTag="transaction"
+                     BuildType="fixsize"
+        />
+
+        <Transaction ID="DEXPRE_TRANS_CLIENT5" SERVICE_CODE="S005"
+                     TransDescription="Dexpre client sample5"
+                     LinkedSystem="LOCAL"
+                     TransRole="CLIENT"
+                     DeployID="C_SK_DEMO3"
+                     OutboundMsgr="#LENGTH{5},CNDS_SYS_HEAD_REQ,CNDS_FEE_REQ"
+                     InboundMsgr="#LENGTH{5},CNDS_SYS_HEAD_RES,CNDS_FEE_RES"
+                     SendCharSet="GBK"
+                     RecvCharSet="GBK"
+                     RootElementTag="transaction"
+                     BuildType="json"
+        />
+
+        <Transaction ID="DEXPRE_TRANS_CLIENT6" SERVICE_CODE="S006"
+                     TransDescription="Dexpre client sample6"
+                     LinkedSystem="LOCAL"
+                     TransRole="CLIENT"
+                     DeployID="C_SK_DEMO3"
+                     OutboundMsgr="#LENGTH{5},CNDS_SYS_HEAD_REQ,CNDS_CUSTOMER_INFO_REQ"
+                     InboundMsgr="#LENGTH{5},CNDS_SYS_HEAD_RES,CNDS_CUSTOMER_INFO_RES"
+                     SendCharSet="GBK"
+                     RecvCharSet="GBK"
+                     RootElementTag="transaction"
+                     BuildType="json"
+        />
+
+        <Transaction ID="DEXPRE_TRANS_CLIENT7" SERVICE_CODE="S007"
+                     TransDescription="Dexpre client sample7"
+                     LinkedSystem="LOCAL"
+                     TransRole="CLIENT"
+                     DeployID="C_SK_DEMO4"
+                     OutboundMsgr="CNDS_SYS_HEAD_REQ,CNDS_FEE_REQ"
+                     InboundMsgr="CNDS_SYS_HEAD_RES,CNDS_FEE_RES"
+                     SendCharSet="GBK"
+                     RecvCharSet="GBK"
+                     RootElementTag="transaction"
+                     BuildType="delimiter{|}"
+        />
+
+        <Transaction ID="DEXPRE_TRANS_CLIENT8" SERVICE_CODE="S008"
+                     TransDescription="Dexpre client sample8"
+                     LinkedSystem="LOCAL"
+                     TransRole="CLIENT"
+                     DeployID="C_SK_DEMO4"
+                     OutboundMsgr="CNDS_SYS_HEAD_REQ,CNDS_CUSTOMER_INFO_REQ"
+                     InboundMsgr="CNDS_SYS_HEAD_RES,CNDS_CUSTOMER_INFO_RES"
+                     SendCharSet="GBK"
+                     RecvCharSet="GBK"
+                     RootElementTag="transaction"
+                     BuildType="delimiter{|}"
+        />
+
+    </TransactionList>
+</AppInstant>
+
