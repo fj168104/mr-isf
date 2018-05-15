@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.mr.modules.biz.mapper.BizConfigMapper" >
+  <resultMap id="BaseResultMap" type="com.mr.modules.biz.model.BizConfig" >
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="app_name" property="appName" jdbcType="CHAR" />
+    <result column="app_name_desp" property="appNameDesp" jdbcType="CHAR" />
+    <result column="URL" property="url" jdbcType="CHAR" />
+    <result column="is_lock" property="isLock" jdbcType="BIT" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="modify_time" property="modifyTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+
+  <select id="findByAppName" resultMap="BaseResultMap">
+    SELECT * FROM biz_config c WHERE  c.app_name = #{appName}
+  </select>
+
+</mapper>

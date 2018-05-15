@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mr.modules.oti.mapper.OtiFieldLibraryMapper">
+  <resultMap id="BaseResultMap" type="com.mr.modules.oti.model.OtiFieldLibrary">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="msg_id" jdbcType="CHAR" property="msgId" />
+    <result column="field_tag" jdbcType="CHAR" property="fieldTag" />
+    <result column="field_desp" jdbcType="CHAR" property="fieldDesp" />
+    <result column="data_type" jdbcType="INTEGER" property="dataType" />
+    <result column="field_length" jdbcType="CHAR" property="fieldLength" />
+    <result column="field_default" jdbcType="CHAR" property="fieldDefault" />
+    <result column="table_field" jdbcType="CHAR" property="tableField" />
+    <result column="parent_id" jdbcType="BIGINT" property="parentId" />
+    <result column="is_require" jdbcType="BIT" property="isRequire" />
+    <result column="sort" jdbcType="BIGINT" property="sort" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="modify_time" jdbcType="TIMESTAMP" property="modifyTime" />
+  </resultMap>
+
+  <resultMap id="treeMap" type="com.mr.modules.sys.vo.TreeNode">
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="parent_id" property="parentId" jdbcType="BIGINT" />
+    <result column="field_desp" property="fieldDesp" jdbcType="VARCHAR" />
+  </resultMap>
+
+
+  <!--返回树列表-->
+  <select id="findTreeListByMsgId" parameterType="java.lang.String" resultMap="treeMap">
+    SELECT id,parent_id,name FROM oti_field_library p  where msg_id = #{msgId} order by p.sort asc
+  </select>
+
+
+  <select id="findFieldLibraryByMsgId" parameterType="java.lang.String" resultMap="BaseResultMap">
+    SELECT * FROM oti_field_library p  where msg_id = #{msgId} order by p.sort asc
+  </select>
+</mapper>
