@@ -1,0 +1,117 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{admin/common/common}">
+<head>
+    <title>调度日志列表</title>
+</head>
+
+<body layout:fragment="content">
+<nav class="breadcrumb">
+    <i class="Hui-iconfont">&#xe67f;</i>
+    首页
+    <span class="c-gray en">&gt;</span>调度管理 <span class="c-gray en">&gt;</span>
+    调度列表<span class="c-gray en">&gt;</span>
+    调度日志列表
+    <a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新" >
+        <i class="Hui-iconfont">&#xe68f;</i>
+    </a>
+</nav>
+<form id="myForm" th:action="@{/admin/job/log/{jobId}(jobId=${jobId})}" th:method="get">
+    <div class="page-container">
+        <div class="text-c">
+            日期范围：
+            <input type="text" onfocus="WdatePicker({dateFmt:'yyyy-MM-dd',maxDate:'#F{$dp.$D(\'dateMax\')}'})" id="dateMin" class="input-text Wdate" style="width:120px;" name="startTime" th:value="${startTime}" readonly="readonly"/>
+            -
+            <input type="text" onfocus="WdatePicker({dateFmt:'yyyy-MM-dd',minDate:'#F{$dp.$D(\'dateMin\')}'})" id="dateMax" class="input-text Wdate" style="width:120px;" name="endTime" th:value="${endTime}" readonly="readonly"/>
+            <input type="text" class="input-text" style="width:250px" placeholder="输入任务名称" name="jobName" th:value="${jobName}"/>
+            <button type="submit" class="btn btn-success">
+                <i class="Hui-iconfont">&#xe665;</i>
+                搜索
+            </button>
+        </div>
+        <div class="cl pd-5 bg-1 bk-gray mt-20">
+            <span class="l">
+                <!--<a href="javascript:;" onclick="datadel()" class="btn btn-danger radius"><i class="Hui-iconfont">&#xe6e2;</i> 批量删除</a>-->
+                <!--<a href="javascript:;" th:onclick="'javascript:job_add(\'添加调度\',\'/admin/job/add\',\'800\',\'500\');'" class="btn btn-primary radius"><i class="Hui-iconfont">&#xe600;</i> 添加调度</a>-->
+                <!--<a href="javascript:;" th:onclick="'javascript:job_add(\'添加调度\',\'/admin/job/add\',\'800\',\'500\');'" class="btn btn-primary radius"><i class="Hui-iconfont">&#xe6e6;</i> 运行一次</a>-->
+                <!--<a href="javascript:;" th:onclick="'javascript:job_add(\'添加调度\',\'/admin/job/add\',\'800\',\'500\');'" class="btn btn-primary radius"><i class="Hui-iconfont">&#xe6e5;</i> 全部暂停</a>-->
+                <!--<a href="javascript:;" th:onclick="'javascript:job_add(\'添加调度\',\'/admin/job/add\',\'800\',\'500\');'" class="btn btn-primary radius"><i class="Hui-iconfont">&#xe66b;</i> 全部恢复</a>-->
+            </span>
+            <span class="r">共有数据：<strong th:text="${pageInfo?.total}" id="total">54</strong> 条</span>
+        </div>
+        <table class="table table-border table-bordered table-bg table-hover">
+            <thead>
+            <tr>
+                <th scope="col" colspan="12">调度日志列表</th>
+            </tr>
+            <tr class="text-c">
+                <!--<th width="25"><input type="checkbox" name="" value=""/></th>-->
+                <th>任务分组</th>
+                <th>任务名称</th>
+                <th>调度方式</th>
+                <th>URL</th>
+                <th>执行类名称</th>
+                <th>执行方法名称</th>
+                <th>执行计划</th>
+                <th>参数</th>
+                <th>是否异步</th>
+                <th>执行状态</th>
+                <th>耗时(单位：毫秒)</th>
+                <th>执行时间</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr class="text-c" th:each="model:${pageInfo?.list}" th:object="${model}">
+                <!--<td><input type="checkbox" th:value="*{id}" name=""/></td>-->
+                <td th:text="*{jobGroup}">2</td>
+                <td th:title="*{jobName}">
+                    <th:block th:if="*{jobName != null && #strings.length(jobName) > 12}" th:text="*{#strings.substring(jobName, 0, 12)+'...'}">1</th:block>
+                    <th:block th:unless="*{jobName != null && #strings.length(jobName) > 12}" th:text="*{jobName}">1</th:block>
+                </td>
+                <td>
+                    <th:block th:if="*{isLocal} eq true">
+                        本地
+                    </th:block>
+                    <th:block th:if="*{isLocal} eq false">
+                        远程
+                    </th:block>
+                </td>
+                <td th:title="*{remoteUrl}">
+                    <th:block th:if="*{remoteUrl != null && #strings.length(remoteUrl) > 12}" th:text="*{#strings.substring(remoteUrl, 0, 12)+'...'}">1</th:block>
+                    <th:block th:unless="*{remoteUrl != null && #strings.length(remoteUrl) > 12}" th:text="*{remoteUrl}">1</th:block>
+                </td>
+                <td th:title="*{beanClass}">
+                    <th:block th:if="*{beanClass != null && #strings.length(beanClass) > 12}" th:text="*{#strings.substring(beanClass, 0, 12)+'...'}">1</th:block>
+                    <th:block th:unless="*{beanClass != null && #strings.length(beanClass) > 12}" th:text="*{beanClass}">1</th:block>
+                </td>
+                <td th:text="*{methodName}"></td>
+                <td th:text="*{cron}">3</td>
+                <td th:title="*{params}">
+                    <th:block th:if="*{params != null && #strings.length(params) > 12}" th:text="*{#strings.substring(params, 0, 12)+'...'}">1</th:block>
+                    <th:block th:unless="*{params != null && #strings.length(params) > 12}" th:text="*{params}">1</th:block>
+                </td>
+                <td>
+                    <span th:if="*{isAsync} eq false">否</span>
+                    <span th:if="*{isAsync} eq true">是</span>
+                </td>
+                <td class="td-status" th:attrappend="id=*{'status'+id}">
+                    <span class="label radius label-danger" th:if="*{status} == 0">失败</span>
+                    <span class="label radius label-success" th:if="*{status} == 1">成功</span>
+                </td>
+                <td th:text="*{times}"></td>
+                <td th:text="*{#dates.format(createTime, 'yyyy-MM-dd HH:mm:ss')}">2014-6-11 11:11:42</td>
+            </tr>
+            </tbody>
+        </table>
+        <div th:replace="admin/common/page :: page"></div>
+    </div>
+</form>
+
+<script type="text/javascript" th:src="@{/js/common/page.js}"></script>
+<script type="text/javascript" th:src="@{/js/admin/job/job-log.js}"></script>
+<script th:inline="javascript">
+
+</script>
+</body>
+</html>

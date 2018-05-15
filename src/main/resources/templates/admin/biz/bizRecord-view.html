@@ -1,0 +1,79 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org"
+       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+       layout:decorate="~{admin/common/common}">
+<head>
+    <title>查看调用记录详情</title>
+</head>
+
+<body layout:fragment="content">
+<article class="page-container">
+    <form class="form form-horizontal" id="form-good-view" th:object="${model}">
+        <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-3">所属应用：</label>
+            <div class="formControls col-xs-8 col-sm-9">
+                <span th:text="*{appName}"></span>
+            </div>
+        </div>
+        <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-3">协议类型 ：</label>
+            <div class="formControls col-xs-8 col-sm-9">
+                <span th:if="*{callType} == 0">rest</span>
+                <span th:unless="*{callType} == 0">dubbo</span>
+            </div>
+        </div>
+
+        <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-3">请求方法：</label>
+            <div class="formControls col-xs-8 col-sm-9">
+                <span th:text="*{methodName}"></span>
+            </div>
+        </div>
+        <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-3">请求方式：</label>
+            <div class="formControls col-xs-8 col-sm-9">
+                <span th:text="*{requestMethod}"></span>
+            </div>
+        </div>
+        <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-3">请求参数：</label>
+            <div class="formControls col-xs-8 col-sm-9">
+                <span th:text="*{requestParams}"></span>
+            </div>
+        </div>
+        <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-3">访问者IP：</label>
+            <div class="formControls col-xs-8 col-sm-9">
+                <span th:text="*{requestIp}"></span>
+            </div>
+        </div>
+        <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-3">请求URI：</label>
+            <div class="formControls col-xs-8 col-sm-9">
+                <span th:text="*{requestUri}"></span>
+            </div>
+        </div>
+        <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-3">耗时(ms)：</label>
+            <div class="formControls col-xs-8 col-sm-9">
+                <span th:text="*{timeConsuming}"></span>
+            </div>
+        </div>
+        <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-3">调用结果：</label>
+            <div class="formControls col-xs-8 col-sm-9">
+                <span th:if="*{callResult} == 0">成功</span>
+                <span th:unless="*{callResult} == 0">失败</span>
+            </div>
+        </div>
+        <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-3">调用时间：</label>
+            <div class="formControls col-xs-8 col-sm-9">
+                <span th:text="*{#dates.format(createTime, 'yyyy-MM-dd HH:mm:ss')}">2014-6-11 11:11:42</span>
+            </div>
+        </div>
+    </form>
+</article>
+
+</body>
+</html>

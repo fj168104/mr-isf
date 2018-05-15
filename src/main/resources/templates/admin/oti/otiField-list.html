@@ -1,0 +1,53 @@
+﻿<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org"
+	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	  layout:decorate="~{admin/common/common}">
+<head>
+	<title>配置详情列表</title>
+	<link rel="stylesheet" type="text/css" th:href="@{/js/lib/treegrid/jquery.treegrid.css}"/>
+	<style>
+		.glyphicon-chevron-right:before{
+			content: "\e6d7";
+		}
+		.glyphicon-chevron-down:before{
+			content: "\e6d5";
+		}
+	</style>
+</head>
+
+<body layout:fragment="content">
+<nav class="breadcrumb">
+	<i class="Hui-iconfont">&#xe67f;</i>
+	首页 <span class="c-gray en">&gt;</span>
+	解析工厂 <span class="c-gray en">&gt;</span>
+	报文配置 <a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新" ><i class="Hui-iconfont">&#xe68f;</i></a>
+</nav>
+<form id="myForm" th:action="@{/admin/oti/field}" th:method="get">
+
+	<div class="page-container">
+		<div class="text-c">
+			<input type="text" class="input-text" style="width:250px" placeholder="消息Id" id="msgId" th:value="*{msgId}">
+			<a class="btn btn-success" onclick="Menu.search();"><i class="Hui-iconfont">&#xe665;</i> 搜报文配置</a>
+		</div>
+		<div class="cl pd-5 bg-1 bk-gray mt-20">
+			<span class="l">
+				<a href="javascript:;" th:onclick="'javascript:oti_field_del(this, \'/admin/oti/field\');'" class="btn btn-danger radius"><i class="Hui-iconfont">&#xe6e2;</i>删除</a>
+				<a href="javascript:;" th:onclick="'javascript:oti_field_add(\'添加报文配置节点\',\'/admin/oti/field/add/' + *{msgId} +'\',\'800\',\'500\');'" class="btn btn-primary radius"><i class="Hui-iconfont">&#xe600;</i> 添加节点</a>
+				<a href="javascript:;" th:onclick="'javascript:oti_field_edit(\'编辑报文配置节点\',\'/admin/oti/field/edit/'+ *{msgId}+'\',\'800\',\'500\');'" class="btn btn-primary radius"><i class="Hui-iconfont">&#xe6df;</i>编辑</a>
+				<a href="javascript:;" th:onclick="'javascript:oti_field_edit(\'添加报文配置子节点\',\'/admin/oti/field/addChild/'+ *{msgId}+'\',\'800\',\'500\');'" class="btn btn-primary radius"><i class="Hui-iconfont">&#xe6df;</i>添加子节点</a>
+			</span>
+		</div>
+
+		<table class="table table-border table-bordered table-bg table-hover" id="msgTable">
+
+		</table>
+    </div>
+</form>
+
+<script type="text/javascript" th:src="@{/js/lib/treegrid/jquery.treegrid.min.js}"></script>
+<script type="text/javascript" th:src="@{/js/lib/treegrid/jquery.treegrid.bootstrap3.js}"></script>
+<script type="text/javascript" th:src="@{/js/lib/treegrid/jquery.treegrid.extension.js}"></script>
+<script type="text/javascript" th:src="@{/js/lib/treegrid/tree.table.js}"></script>
+<script type="text/javascript" th:src="@{/js/admin/oti/oti-field.js}"></script>
+</body>
+</html>

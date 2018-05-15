@@ -1,0 +1,115 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{admin/common/common}">
+<head>
+    <title>添加报文详细配置</title>
+</head>
+
+<body layout:fragment="content">
+<article class="page-container">
+    <form class="form form-horizontal" id="form-oti-field-add">
+        <input type="hidden" name="tokenForm" th:value="${#session.getAttribute('tokenForm')}"/>
+        <input type="hidden" th:name="msgId" th:id="msgId" th:value="*{msgId}"/>
+
+        <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>字段名：</label>
+            <div class="formControls col-xs-8 col-sm-9">
+                <input type="text" class="input-text" placeholder="" id="fieldTag" th:name="fieldTag"/>
+            </div>
+        </div>
+
+        <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>字段描述：</label>
+            <div class="formControls col-xs-8 col-sm-9">
+                <input type="text" class="input-text" value="" placeholder="" id="fieldDesp" th:name="fieldDesp"/>
+            </div>
+        </div>
+
+        <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>类型：</label>
+            <div class="formControls col-xs-8 col-sm-9 skin-minimal">
+                <div class="radio-box">
+                    <input type="radio" id="sex-1" th:name="dataType" th:value="1"/>
+                    <label for="sex-1">string</label>
+                </div>
+                <div class="radio-box">
+                    <input type="radio" id="sex-2" th:name="dataType" th:value="2"/>
+                    <label for="sex-2">int</label>
+                </div>
+                <div class="radio-box">
+                    <input type="radio" id="sex-3" th:name="dataType" th:value="3"/>
+                    <label for="sex-3">double</label>
+                </div>
+                <div class="radio-box">
+                    <input type="radio" id="sex-4" th:name="dataType" th:value="4"/>
+                    <label for="sex-3">object</label>
+                </div>
+                <div class="radio-box">
+                    <input type="radio" id="sex-5" th:name="dataType" th:value="5"/>
+                    <label for="sex-3">array</label>
+                </div>
+            </div>
+        </div>
+
+        <div class="row cl fieldLengthDiv">
+            <label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>字段长度：</label>
+            <div class="formControls col-xs-8 col-sm-9">
+                <input type="text" class="input-text" placeholder="字段长度" id="fieldLength" th:name="fieldLength"/>
+            </div>
+        </div>
+
+        <div class="row cl fieldDefaultDiv">
+            <label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>默认值：</label>
+            <div class="formControls col-xs-8 col-sm-9">
+                <input type="text" class="input-text" placeholder="默认值" id="fieldDefault" th:name="fieldDefault"/>
+            </div>
+        </div>
+
+        <div class="row cl tableFieldDiv">
+            <label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>查询的SQL：</label>
+            <div class="formControls col-xs-8 col-sm-9">
+                <input type="text" class="input-text" placeholder="查询的SQL" id="tableField" th:name="tableField"/>
+            </div>
+        </div>
+
+        <div class="row cl parentIdDiv">
+            <label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>父节点：</label>
+            <div class="formControls col-xs-8 col-sm-9">
+                <input type="text" class="input-text" placeholder="父节点" id="parentId" th:name="parentId"
+                       th:value="*{parentId}" contenteditable="false"/>
+            </div>
+        </div>
+
+        <div class="row cl requireDiv">
+            <label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>是否必填：</label>
+            <div class="formControls col-xs-8 col-sm-9 skin-minimal">
+                <div class="radio-box">
+                    <input type="radio" id="require-0" th:name="isRequire" th:value="0"/>
+                    <label for="require-0">非必填</label>
+                </div>
+                <div class="radio-box">
+                    <input type="radio" id="require-1" th:name="isRequire" th:value="1"/>
+                    <label for="require-1">必填</label>
+                </div>
+            </div>
+        </div>
+
+        <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-3">排序号：</label>
+            <div class="formControls col-xs-8 col-sm-9">
+                <input type="number" class="input-text" id="sort" th:name="sort"/>
+            </div>
+        </div>
+
+        <div class="row cl">
+            <div class="col-xs-8 col-sm-9 col-xs-offset-4 col-sm-offset-3">
+                <input class="btn btn-primary radius" type="submit" value="&nbsp;&nbsp;提交&nbsp;&nbsp;"/>
+            </div>
+        </div>
+    </form>
+</article>
+
+<script type="text/javascript" th:src="@{/js/admin/oti/oti-field-add.js}"></script>
+</body>
+</html>

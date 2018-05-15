@@ -1,0 +1,48 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{admin/common/common}">
+<head>
+    <title>添加调用配置 - 服务管理</title>
+</head>
+<body layout:fragment="content">
+<article class="page-container">
+    <form class="form form-horizontal" id="form-biz-config-add">
+        <input type="hidden" name="tokenForm" th:value="${#session.getAttribute('tokenForm')}"/>
+        <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>所属应用：</label>
+            <div class="formControls col-xs-8 col-sm-9">
+                <input type="text" class="input-text" value="" placeholder="" id="appName" th:name="appName"/>
+            </div>
+        </div>
+        <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>所属应用描述：</label>
+            <div class="formControls col-xs-8 col-sm-9">
+                <input type="text" class="input-text" value="" placeholder="" id="appNameDesp" th:name="appNameDesp"/>
+            </div>
+        </div>
+        <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>目标URL：</label>
+            <div class="formControls col-xs-8 col-sm-9">
+                <input type="text" class="input-text" value="" placeholder="" id="url" th:name="url"/>
+            </div>
+        </div>
+
+        <!--<div class="row cl">-->
+        <!--<label class="form-label col-xs-4 col-sm-3">备注：</label>-->
+        <!--<div class="formControls col-xs-8 col-sm-9">-->
+        <!--<textarea name="" cols="" rows="" class="textarea"  placeholder="说点什么...100个字符以内" dragonfly="true" onKeyUp="textarealength(this,100)"></textarea>-->
+        <!--<p class="textarea-numberbar"><em class="textarea-length">0</em>/100</p>-->
+        <!--</div>-->
+        <!--</div>-->
+        <div class="row cl">
+            <div class="col-xs-8 col-sm-9 col-xs-offset-4 col-sm-offset-3">
+                <input class="btn btn-primary radius" type="submit" value="&nbsp;&nbsp;提交&nbsp;&nbsp;"/>
+            </div>
+        </div>
+    </form>
+</article>
+
+<script type="text/javascript" th:src="@{/js/admin/biz/biz-add.js}"></script>
+</body>
+</html>

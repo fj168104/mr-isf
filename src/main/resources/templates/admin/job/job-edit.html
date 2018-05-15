@@ -1,0 +1,107 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{admin/common/common}">
+<head>
+    <title>编辑调度 - 调度列表</title>
+</head>
+<body layout:fragment="content">
+<article class="page-container">
+    <form class="form form-horizontal" id="form-job-edit" >
+        <input type="hidden" name="tokenForm" th:value="${#session.getAttribute('tokenForm')}" />
+        <input type="hidden" th:id="id" th:value="${model?.id}"/>
+        <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>任务分组：</label>
+            <div class="formControls col-xs-8 col-sm-9">
+                <input type="text" class="input-text" value="" placeholder="请输入任务分组" id="jobGroup" th:name="jobGroup" th:value="${model?.jobGroup}"/>
+            </div>
+        </div>
+        <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>任务名称：</label>
+            <div class="formControls col-xs-8 col-sm-9">
+                <input type="text" class="input-text" value="" placeholder="请输入任务名称" id="jobName" th:name="jobName" th:value="${model?.jobName}"/>
+            </div>
+        </div>
+        <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>cron表达式：</label>
+            <div class="formControls col-xs-8 col-sm-9">
+                <input type="text" class="input-text" value="" placeholder="请输入cron表达式" id="cron" th:name="cron" th:value="${model?.cron}"/>
+            </div>
+        </div>
+        <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>是否本地执行：</label>
+            <div class="formControls col-xs-8 col-sm-9 skin-minimal">
+                <div class="radio-box">
+                    <input type="radio" id="sex-1" th:name="isLocal" th:value="1" th:checked="${model?.isLocal} eq true"/>
+                    <label for="sex-1">是</label>
+                </div>
+                <div class="radio-box">
+                    <input type="radio" id="sex-2" name="isLocal" th:name="isLocal" th:value="0" th:checked="${model?.isLocal} eq false"/>
+                    <label for="sex-2">否</label>
+                </div>
+            </div>
+        </div>
+        <div class="row cl" id="beanClassDiv">
+            <label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>执行类名称：</label>
+            <div class="formControls col-xs-8 col-sm-9">
+                <input type="text" class="input-text" value="" placeholder="包名+类名" id="beanClass" th:name="beanClass" th:value="${model?.beanClass}"/>
+            </div>
+        </div>
+        <div class="row cl" id="methodNameDiv">
+            <label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>执行方法名称：</label>
+            <div class="formControls col-xs-8 col-sm-9">
+                <input type="text" class="input-text" value="" placeholder="请输入执行方法名称" id="methodName" th:name="methodName" th:value="${model?.methodName}"/>
+            </div>
+        </div>
+        <div class="row cl" id="remoteUrlDiv">
+            <label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>远程执行地址：</label>
+            <div class="formControls col-xs-8 col-sm-9">
+                <input type="text" class="input-text" value="" placeholder="请输入远程执行地址 如:http://www.good.com/test/{key1}/{key2}?key3={key3}" id="remoteUrl" th:name="remoteUrl" th:value="${model?.remoteUrl}"/>
+            </div>
+        </div>
+        <!--<div class="row cl" id="remoteRequestMethodDiv">-->
+            <!--<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>请求方式：</label>-->
+            <!--<div class="formControls col-xs-8 col-sm-9"> <span class="select-box" style="width:150px;">-->
+			<!--<select class="select" id="remoteRequestMethod" size="1" th:name="remoteRequestMethod">-->
+				<!--<option value="GET" th:selected="${model?.remoteRequestMethod} eq 'GET'">GET</option>-->
+				<!--<option value="POST" th:selected="${model?.remoteRequestMethod} eq 'POST'">POST</option>-->
+				<!--<option value="PUT" th:selected="${model?.remoteRequestMethod} eq 'PUT'">PUT</option>-->
+				<!--<option value="DELETE" th:selected="${model?.remoteRequestMethod} eq 'DELETE'">DELETE</option>-->
+			<!--</select>-->
+			<!--</span>-->
+            <!--</div>-->
+        <!--</div>-->
+        <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-3">参数：</label>
+            <div class="formControls col-xs-8 col-sm-9">
+                <input type="text" class="input-text" value="" placeholder="请输入参数" id="params" th:name="params" th:value="${model?.params}"/>
+            </div>
+        </div>
+        <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>是否异步：</label>
+            <div class="formControls col-xs-8 col-sm-9"> <span class="select-box" style="width:150px;">
+			<select class="select" id="isAsync" size="1" th:name="isAsync">
+				<option value="1" th:selected="${model?.isAsync} eq true">是</option>
+				<option value="0" th:selected="${model?.isAsync} eq false">否</option>
+			</select>
+			</span>
+            </div>
+        </div>
+        <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-3">描述：</label>
+            <div class="formControls col-xs-8 col-sm-9">
+                <textarea th:name="remarks" cols="" rows="" class="textarea"  placeholder="说点什么...100个字符以内" dragonfly="true" onKeyUp="textarealength(this,100)">[[${model?.remarks}]]</textarea>
+                <p class="textarea-numberbar"><em class="textarea-length">0</em>/100</p>
+            </div>
+        </div>
+        <div class="row cl">
+            <div class="col-xs-8 col-sm-9 col-xs-offset-4 col-sm-offset-3">
+                <input class="btn btn-primary radius" type="submit" value="&nbsp;&nbsp;提交&nbsp;&nbsp;"/>
+            </div>
+        </div>
+    </form>
+</article>
+
+<script type="text/javascript" th:src="@{/js/admin/job/job-edit.js}"></script>
+</body>
+</html>

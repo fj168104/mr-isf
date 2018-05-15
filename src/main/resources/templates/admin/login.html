@@ -1,0 +1,164 @@
+﻿<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>微策智能后台登录</title>
+  <meta charset="utf-8"/>
+  <meta name="renderer" content="webkit|ie-comp|ie-stand"/>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+  <meta http-equiv="Cache-Control" content="no-siteapp" />
+  <!--<meta name="keywords" content="H-ui.admin v2.4,H-ui网站后台模版,后台模版下载,后台管理系统模版,HTML后台模版下载"/>-->
+  <!--<meta name="description" content="H-ui.admin v2.4，是一款由国人开发的轻量级扁平化网站后台模板，完全免费开源的网站后台管理系统模版，适合中小型CMS后台系统。"/>-->
+  <!--<LINK rel="Bookmark" th:href="/favicon.ico" />-->
+  <!--<LINK rel="Shortcut Icon" th:href="/favicon.ico" />-->
+  <link rel="stylesheet" type="text/css" th:href="@{/h-ui/static/h-ui/css/H-ui.min.css}" />
+  <link rel="stylesheet" type="text/css" th:href="@{/h-ui/lib/Hui-iconfont/1.0.8/iconfont.css}" />
+  <link rel="stylesheet" type="text/css" th:href="@{/h-ui/static/h-ui.admin/css/style.css}" />
+  <link rel="stylesheet" type="text/css" th:href="@{/h-ui/static/h-ui.admin/css/H-ui.login.css}" />
+  <link rel="stylesheet" type="text/css" th:href="@{/h-ui/extend/login/css/supersized.css}" />
+  <style>
+    h3{
+      margin:120px auto;
+      text-align:center;
+      color:#FFFFFF;
+    }
+    .title{
+      position: absolute;
+      width: 100%;
+      height: 780px;
+      left: 0;
+      top: 0;
+      bottom: 0;
+      right: 0;
+    }
+  </style>
+</head>
+
+<body>
+<input type="hidden" id="TenantId" name="TenantId" value="" />
+<div class="title">
+
+  <h3>迈容智能监管前置系统</h3>
+
+  <div id="loginform" class="loginBox">
+    <form class="form form-horizontal" action="index.html" method="post" th:action="@{/admin/login}">
+      <div class="row cl">
+        <label class="form-label col-xs-3"><i class="Hui-iconfont">&#xe60d;</i></label>
+        <div class="formControls col-xs-8">
+          <input th:name="username" type="text" placeholder="账户" class="input-text size-L" />
+        </div>
+      </div>
+      <div class="row cl">
+        <label class="form-label col-xs-3">
+          <i class="Hui-iconfont">&#xe60e;</i>
+        </label>
+        <div class="formControls col-xs-8">
+          <input th:name="password" type="password" placeholder="密码" class="input-text size-L" />
+        </div>
+      </div>
+      <!--<div class="row cl">-->
+        <!--<div class="formControls col-xs-8 col-xs-offset-3">-->
+          <!--<input class="input-text size-L" type="text" placeholder="验证码" onblur="if(this.value==''){this.value='验证码:'}" onclick="if(this.value=='验证码:'){this.value='';}" value="验证码:" style="width:150px;">-->
+          <!--<img src="images/VerifyCode.aspx.png"> <a id="kanbuq" href="javascript:;">看不清，换一张</a> </div>-->
+      <!--</div>-->
+      <!--<div class="row cl">-->
+        <!--<div class="formControls col-xs-8 col-xs-offset-3">-->
+          <!--<label for="online">-->
+            <!--<input type="checkbox" name="online" id="online" value="">-->
+            <!--使我保持登录状态</label>-->
+        <!--</div>-->
+      <!--</div>-->
+      <div class="row cl">
+        <div class="formControls col-xs-8 col-xs-offset-3">
+          <input type="button" class="btn btn-success radius size-L btnSubmit" value="&nbsp;登&nbsp;&nbsp;&nbsp;&nbsp;录&nbsp;" th:onclick="'javascript:onLine(\'/admin/login\');'"/>
+          <input name="" type="reset" class="btn btn-default radius size-L" value="&nbsp;取&nbsp;&nbsp;&nbsp;&nbsp;消&nbsp;"/>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+
+<script type="text/javascript" th:src="@{/js/lib/jquery-1.11.0.min.js}"></script>
+<script type="text/javascript" th:src="@{/h-ui/extend/login/js/supersized.3.2.7.min.js}"></script>
+<script type="text/javascript" th:src="@{/h-ui/extend/login/js/supersized-init.js}"></script>
+<script type="text/javascript" th:src="@{/h-ui/static/h-ui/js/H-ui.min.js}"></script>
+<script type="text/javascript" th:src="@{/h-ui/lib/layer/2.4/layer.js}"></script>
+<script type="text/javascript" th:src="@{/js/common/layerUtil.js}"></script>
+<script type="text/javascript" th:src="@{/js/common/common.js}"></script>
+<script th:src="@{/js/lib/canvas-nest.min.js}" count="100" zindex="-2" opacity="0.5" color="255,255,255" type="text/javascript"></script>
+<script th:inline="javascript">
+
+    $(function () {
+        var kit = [[${param.kit}]];
+        if(kit == '1'){
+           sadMessage("账号已经在其他地方登录，请重新登录！");
+        }
+    });
+
+
+    if(self != top) {
+      top.location = self.location;
+    }
+
+    function onLine(url) {
+      var usernameObj = $("input[name = 'username']");
+      var passwordObj = $("input[name = 'password']");
+      $.ajax({
+        type:"POST",
+        dataType:"json",
+        url: url,
+        data:{
+          "username": usernameObj.val(),
+          "password": passwordObj.val(),
+          "timestamp":new Date().getTime()
+        },
+        statusCode: {
+          200: function(data){
+              smileMessage(data.responseText);
+              window.location.href = "/admin/index";
+          },
+          401: function (data) {
+            if(data != ""){
+                var dataJson = eval('('+data.responseText+')');
+                //踢出询问"当前账号已经登录IP: 192.168.1.126<br/>登录时间: 2017-7-28 15:52:05 "
+                if(dataJson.code == 2077){
+                  layer.confirm(dataJson.msg, {icon: 5, title:'提示',btn: ['踢出', '取消']}, function(index){
+                    //执行踢出并登录
+                    onLine(url+"?tc=1");
+                    closeMessage(index);
+                  });
+                }
+            }
+          },
+          404: function(data){
+            sadMessage(data.responseText);
+          },
+          500: function(data){
+              sadMessage(data.responseText);
+          }
+        },
+        beforeSend:function () {
+           if(usernameObj.val() == ""){
+              warningMessage("请输入用户名!");
+              usernameObj.focus();
+              return false;
+           }
+           if(passwordObj.val() == ""){
+             warningMessage("请输入密码!");
+             passwordObj.focus();
+             return false;
+           }
+        }
+      });
+    }
+
+
+
+    $("body").keydown(function() {
+      if (event.keyCode == "13") {//keyCode=13是回车键
+        $('.btnSubmit').trigger("click");
+      }
+    });
+</script>
+</body>
+</html>

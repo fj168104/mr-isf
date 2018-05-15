@@ -1,0 +1,107 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{admin/common/common}">
+<head>
+    <title>解析配置列表</title>
+</head>
+
+<body layout:fragment="content">
+<nav class="breadcrumb">
+    <i class="Hui-iconfont">&#xe67f;</i>
+    首页
+    <span class="c-gray en">&gt;</span>解析工厂 <span class="c-gray en">&gt;</span>
+    版本管理
+    <a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px"
+       href="javascript:location.replace(location.href);" title="刷新">
+        <i class="Hui-iconfont">&#xe68f;</i>
+    </a>
+</nav>
+<form id="myForm" th:action="@{/admin/oti/config}" th:method="get">
+    <div class="page-container">
+        <div class="text-c">
+            日期范围：
+            <input type="text" onfocus="WdatePicker({dateFmt:'yyyy-MM-dd',maxDate:'#F{$dp.$D(\'dateMax\')}'})"
+                   id="dateMin" class="input-text Wdate" style="width:120px;" name="startTime" th:value="${startTime}"
+                   readonly="readonly"/>
+            -
+            <input type="text" onfocus="WdatePicker({dateFmt:'yyyy-MM-dd',minDate:'#F{$dp.$D(\'dateMin\')}'})"
+                   id="dateMax" class="input-text Wdate" style="width:120px;" name="endTime" th:value="${endTime}"
+                   readonly="readonly"/>
+            <input type="text" class="input-text" style="width:250px" placeholder="输入传输消息ID" name="msgId"
+                   th:value="${msgId}"/>
+            <button type="submit" class="btn btn-success">
+                <i class="Hui-iconfont">&#xe665;</i>
+                搜消息配置
+            </button>
+        </div>
+        <div class="cl pd-5 bg-1 bk-gray mt-20">
+            <span class="l">
+                <!--<a href="javascript:;" onclick="datadel()" class="btn btn-danger radius"><i class="Hui-iconfont">&#xe6e2;</i> 批量删除</a>-->
+                <a href="javascript:;"
+                   th:onclick="'javascript:otiConfig_add(\'添加解析配置\',\'/admin/oti/config/add\',\'800\',\'500\');'"
+                   class="btn btn-primary radius"><i class="Hui-iconfont">&#xe600;</i> 添加解析配置</a>
+                <a href="javascript:;" th:onclick="'javascript:oti_config_download();'" class="btn btn-primary radius"><i class="Hui-iconfont">&#xe600;</i> 下载配置</a>
+                <a href="javascript:;" th:onclick="'javascript:oti_config_view();'" class="btn btn-primary radius"><i class="Hui-iconfont">&#xe600;</i> 预览配置</a>
+
+            </span>
+            <span class="r">共有数据：<strong th:text="${pageInfo?.total}" id="total">54</strong> 条</span>
+        </div>
+        <table class="table table-border table-bordered table-bg table-hover">
+            <thead>
+            <tr>
+                <th scope="col" colspan="6">解析配置列表</th>
+            </tr>
+            <tr class="text-c">
+                <th width="25"><input type="checkbox" name="" value=""/></th>
+                <th>传输消息ID</th>
+                <th>传输消息描述</th>
+                <th>消息编码</th>
+                <th>是否已启用</th>
+                <th>加入时间</th>
+                <th width="100">操作</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr class="text-c" th:each="model:${pageInfo?.list}" th:object="${model}">
+                <td><input type="checkbox" th:value="*{id}" id=""/></td>
+                <td th:text="*{msgId}">1</td>
+                <td th:text="*{msgNameDesp}">2</td>
+                <td th:text="*{charset}">3</td>
+                <td class="td-status">
+                    <span class="label radius" th:if="*{status == 0}">已停用</span>
+                    <span class="label radius label-success" th:unless="*{status == 0}">已启用</span>
+                </td>
+                <td th:text="*{#dates.format(createTime, 'yyyy-MM-dd HH:mm')}">2014-6-11 11:11:42</td>
+
+                <td class="td-manage">
+                    <a style="text-decoration:none"
+                       th:onclick="'javascript:otiConfig_status(this, \'/admin/oti/config/status/'+*{id}+'\',\''+*{status}+'\');'"
+                       href="javascript:;" title="启用" th:if="*{status == 0}"><i class="Hui-iconfont">&#xe615;</i></a>
+                    <a style="text-decoration:none"
+                       th:onclick="'javascript:otiConfig_status(this, \'/admin/oti/config/status/'+*{id}+'\',\''+*{status}+'\');'"
+                       href="javascript:;" title="禁用" th:unless="*{status == 0}"><i class="Hui-iconfont">&#xe631;</i></a>
+                    <a title="编辑" href="javascript:;"
+                       th:onclick="'javascript:otiConfig_edit(\'解析配置编辑\',\'/admin/oti/config/edit/'+*{id}+'\',\'800\',\'500\');'"
+                       class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6df;</i></a>
+                    <a title="删除" href="javascript:;"
+                       th:onclick="'javascript:otiConfig_del(this,\'' +*{msgId}+ '\', \'/admin/oti/config/'+*{id}+'\');'" class="ml-5"
+                       style="text-decoration:none"><i class="Hui-iconfont">&#xe6e2;</i></a>
+                    <a title="字段配置" th:href="'/admin/oti/config/field/' + *{msgId}" class="ml-5"
+                       style="text-decoration:none"><i class="Hui-iconfont">&#xe72d;</i></a>
+
+                </td>
+            </tr>
+            </tbody>
+        </table>
+        <div th:replace="admin/common/page :: page"></div>
+    </div>
+</form>
+
+<script type="text/javascript" th:src="@{/js/common/page.js}"></script>
+<script type="text/javascript" th:src="@{/js/admin/oti/oti-list.js}"></script>
+<script th:inline="javascript">
+
+</script>
+</body>
+</html>
