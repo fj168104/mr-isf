@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	  layout:decorate="~{admin/common/common}">
+<style>
+body{height:auto;font-family: "Microsoft YaHei";}
+button{font-family: "SimSun","Helvetica Neue",Helvetica,Arial;}
+.box {
+	position: relative;
+	border-radius: 3px;
+	background: #ffffff;
+	border-top: 3px solid #d2d6de;
+	margin-bottom: 20px;
+	width: 100%;
+	box-shadow: 0 1px 1px rgba(0,0,0,0.1)
+}
+.box-main {
+	margin: 0;
+	border: 0;
+	padding-top: 2px;
+	border-radius: 0;
+	box-shadow: none
+}
+</style>
+<body layout:fragment="content" class="box box-main">
+	<input id="treeId"   type="hidden"/>
+	<input id="treeName" type="hidden"/>
+	<div class="wrapper"><div class="treeShowHideButton" onclick="search();">
+		<label id="btnShow" title="显示搜索" style="display:none;">︾</label>
+		<label id="btnHide" title="隐藏搜索">︽</label>
+	</div>
+	<div class="treeSearchInput" id="search">
+		<label for="keyword">关键字：</label><input type="text" class="empty" id="keyword" maxlength="50">
+		<button class="btn" id="btn" onclick="searchNode()"> 搜索 </button>
+	</div>
+	<div class="treeExpandCollapse">
+		<a href="javascript:" id="btnExpand">展开</a> /
+		<a href="javascript:" id="btnCollapse">折叠</a>
+	</div>
+	<div id="tree" class="ztree treeselect"></div>
+	</div>
+	<div class="layui-layer-btn">
+		<a class="layui-layer-btn0" th:onclick="'javascript:confirmCheck()'"><i class="fa fa-check"></i> 确定</a>
+		<a class="layui-layer-btn1" th:onclick="'javascript:layer_close()'"><i class="fa fa-close"></i> 关闭</a>
+	</div>
+	<link rel="stylesheet" type="text/css" th:href="@{/h-ui/lib/zTree/v3/css/metroStyle/metroStyle.css}" />
+	<script type="text/javascript" th:src="@{/h-ui/lib/zTree/v3/js/jquery.ztree.core-3.5.min.js}"></script>
+	<script type="text/javascript" th:src="@{/h-ui/lib/zTree/v3/js/jquery.ztree.exhide-3.5.min.js}"></script>
+	<script type="text/javascript" th:src="@{/js/admin/data/data-classify-tree.js}"></script>
+	<script th:inline="javascript">
+		var treeName = [[${treeName}]];
+		$("#treeName").val(treeName);
+	</script>
+</body>
+</html>
