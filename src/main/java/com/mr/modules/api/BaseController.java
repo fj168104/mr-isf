@@ -23,4 +23,5 @@ public class BaseController {
      * 页码大小10
      */
     protected static final Integer PAGESIZE = 10;
+
 }
