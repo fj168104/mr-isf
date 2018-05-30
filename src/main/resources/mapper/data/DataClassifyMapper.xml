@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mr.modules.data.mapper.DataClassifyMapper">
+	<resultMap id="BaseResultMap" type="com.mr.modules.data.model.DataClassify">
+		<!-- WARNING - @mbg.generated -->
+		<id column="id" jdbcType="BIGINT" property="id" />
+		<result column="name" jdbcType="VARCHAR" property="name" />
+		<result column="parent_id" jdbcType="BIGINT" property="parentId" />
+		<result column="parent_name" jdbcType="VARCHAR" property="parentName" />
+		<result column="sort" jdbcType="INTEGER" property="sort" />
+		<result column="is_parent" jdbcType="BIT" property="isParent" />
+		<result column="action" jdbcType="VARCHAR" property="action" />
+		<result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+		<result column="modify_time" jdbcType="TIMESTAMP" property="modifyTime" />
+	</resultMap>
+
+	<resultMap id="treeMap" type="com.mr.modules.data.vo.DataClassifyTreeNode">
+		<id column="id" property="id" jdbcType="BIGINT" />
+		<result column="parent_id" property="parentId" jdbcType="BIGINT" />
+		<result column="name" property="name" jdbcType="VARCHAR" />
+		<result column="action" property="action" jdbcType="VARCHAR"/>
+	</resultMap>
+
+	<!--返回树列表 -->
+	<select id="findTreeList" resultMap="treeMap">
+		SELECT id,parent_id,name,action FROM isf_data_classify
+	</select>
+</mapper>

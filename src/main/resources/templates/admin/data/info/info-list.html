@@ -1,0 +1,28 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{admin/common/common}">
+<head>
+    <title>内容列表</title>
+</head>
+
+<body class="pos-r" layout:fragment="content" id="treeData">
+<div class="pos-a" style="width:200px;left:0;top:0; bottom:0; height:100%; border-right:1px solid #e5e5e5; background-color:#f5f5f5; overflow:auto;">
+    <ul id="treeDemo" class="ztree"></ul>
+</div>
+<div style="margin-left:200px;">
+	<iframe id="classifyIframe" name="classifyIframe"  frameborder=0 scrolling=auto width=100%  src=""></iframe>
+</div>
+
+<script type="text/javascript" th:src="@{/js/common/page.js}"></script>
+<link rel="stylesheet" type="text/css" th:href="@{/h-ui/lib/zTree/v3/css/metroStyle/metroStyle.css}" />
+<script type="text/javascript" th:src="@{/h-ui/lib/zTree/v3/js/jquery.ztree.core-3.5.min.js}"></script>
+<script type="text/javascript" th:src="@{/h-ui/lib/zTree/v3/js/jquery.ztree.excheck-3.5.min.js}"></script>
+<script type="text/javascript" th:src="@{/js/admin/data/data-info-tree.js}"></script>
+<script th:inline="javascript">
+    $(document).ready(function(){
+        inintTree();
+    });
+</script>
+</body>
+</html>
