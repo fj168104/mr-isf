@@ -205,6 +205,9 @@ function layer_show(title,url,w,h){
 		content: url
 	});
 }
+function layer_showAuto(title, url) {
+	layer_show(title, url, '', '');
+}
 /*关闭弹出框口*/
 function layer_close(){
 	var index = parent.layer.getFrameIndex(window.name);

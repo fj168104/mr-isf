@@ -23,12 +23,12 @@
 
         <!--数据库连接 -->
         <jdbcConnection driverClass="com.mysql.jdbc.Driver"
-                        connectionURL="jdbc:mysql://47.100.7.81:3306/frontier?useSSL=false"
+                        connectionURL="jdbc:mysql://47.100.7.81:3306/data_isf?useSSL=false"
                         userId="root"
                         password="Root@1234">
         </jdbcConnection>
 
-        <javaModelGenerator targetPackage="com.mr.model" targetProject="./src/main/java">
+        <javaModelGenerator targetPackage="com.mr.modules.data.model" targetProject="./src/main/java">
             <!-- 设置一个根对象，
            如果设置了这个根对象，那么生成的keyClass或者recordClass会继承这个类；在Table的rootClass属性中可以覆盖该选项
            注意：如果在key class或者record class中有root class相同的属性，MBG就不会重新生成这些属性了，包括：
@@ -36,15 +36,15 @@
         -->
             <property name="rootClass" value="com.mr.common.base.model.BaseEntity"/>
         </javaModelGenerator>
+        
+        <sqlMapGenerator targetPackage="mapper.data" targetProject="./src/main/resources"/>
+        
+        <javaClientGenerator targetPackage="com.mr.modules.data.mapper" targetProject="./src/main/java" type="XMLMAPPER"/>
 
-        <sqlMapGenerator targetPackage="mapper" targetProject="./src/main/resources"/>
-
-        <javaClientGenerator targetPackage="com.mr.mapper" targetProject="./src/main/java"
-                             type="XMLMAPPER"/>
-
-        <table tableName="oti_field_library">
+        <table tableName="isf_data_classify">
             <!--mysql 配置-->
             <generatedKey column="id" sqlStatement="Mysql" identity="true"/>
+            <domainObjectRenamingRule searchString="^isf" replaceString="" /><!-- 去除表名前缀 -->
             <!--oracle 配置-->
             <!--<generatedKey column="id" sqlStatement="select SEQ_{1}.nextval from dual" identity="false" type="pre"/>-->
         </table>

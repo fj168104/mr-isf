@@ -1,0 +1,49 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org"
+	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	  layout:decorate="~{admin/common/common}">
+<head>
+	<title>修改分类</title>
+</head>
+
+<body layout:fragment="content">
+<article class="page-container">
+	<form class="form form-horizontal" id="form-data-classify-edit">		
+		<input id="tokenForm" name="tokenForm" type="hidden"  th:value="${#session.getAttribute('tokenForm')}" />
+		<input id="id" name="id" type="hidden" th:value="${classify.id}"/>
+		<input id="parentId" name="parentId" type="hidden" th:value="${classify.parentId}"/>
+		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-3">上级分类：</label>
+			<div class="formControls col-xs-6 col-sm-7">
+				<input type="text" class="input-text" onclick="selectClassifyTree()" id="parentName" th:name="parentName" readonly="readonly" th:value="${classify.parentName}"/>
+			</div>
+		</div>
+		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>分类名称：</label>
+			<div class="formControls col-xs-6 col-sm-7">
+				<input type="text" class="input-text" name="name" id="name"  th:value="${classify.name}"/>
+			</div>
+		</div>
+		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-3">显示排序：</label>
+			<div class="formControls col-xs-6 col-sm-7">
+				<input type="number" class="input-text" name="sort" id="sort" th:value="${classify.sort}"/>
+			</div>
+		</div>
+		<div class="row cl URLDiv">
+			<label class="form-label col-xs-4 col-sm-3">URL：</label>
+			<div class="formControls col-xs-6 col-sm-7">
+				<input type="text" class="input-text" placeholder="访问URL" name="action" id="action" th:value="${classify.action}"/>
+			</div>
+		</div>
+		<div class="row cl">
+			<div class="col-xs-6 col-sm-7 col-xs-offset-4 col-sm-offset-3">
+				<input class="btn btn-primary radius" type="submit" value="&nbsp;&nbsp;提交&nbsp;&nbsp;"/>
+			</div>
+		</div>
+	</form>
+</article>
+
+<script type="text/javascript" th:src="@{/js/admin/data/data-classify-edit.js}"></script>
+</body>
+</html>
