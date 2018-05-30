@@ -57,7 +57,7 @@ public class MrCrawlerOneBankTwomeetPunishDtlController extends BaseController {
         } catch (Exception e) {
             log.error("分页查询日志列表失败! e = {}", e);
         }
-        return BASE_PATH + "datamanage-list";
+        return BASE_PATH + "mrCrawlerOnebankTwomeetPunishDtl-list";
     }
 
 

@@ -1,0 +1,124 @@
+﻿﻿<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org"
+	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	  layout:decorate="~{admin/common/common}">
+<head>
+	<title>配置详情列表</title>
+	<link rel="stylesheet" type="text/css" th:href="@{/js/lib/treegrid/jquery.treegrid.css}"/>
+	<style>
+		.glyphicon-chevron-right:before{
+			content: "\e6d7";
+		}
+		.glyphicon-chevron-down:before{
+			content: "\e6d5";
+		}
+	</style>
+</head>
+
+<body layout:fragment="content">
+<nav class="breadcrumb">
+	<i class="Hui-iconfont">&#xe67f;</i>
+	首页 <span class="c-gray en">&gt;</span>
+	检索管理 <span class="c-gray en">&gt;</span>
+	全量检索 <a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新" ><i class="Hui-iconfont">&#xe68f;</i></a>
+</nav>
+<form id="myForm" th:action="@{/admin/oti/field}" th:method="get">
+
+	<div class="page-container">
+
+		<div class="text-c" >
+			<input type="text" class="input-text-remote" style="width:300px;height: 31px;" placeholder="远程检索" id="remoteSearch" th:value="*{remoteSearch}">
+			<a class="btn btn-success"  style="line-height: 25px;height: 100%;" onclick="searchRemote();"><i class="Hui-iconfont">&#xe665;</i> 检索···</a>
+			<input type="text" class="input-text-local" style="width:300px;height: 31px;" placeholder="本地检索" id="localSearch" th:value="*{localSearch}">
+			<a class="btn btn-success" style="line-height: 25px;height: 100%;" onclick="searchLocal();"><i class="Hui-iconfont">&#xe665;</i> 检索···</a>
+		</div>
+
+		<div class="cl pd-5 bg-1 bk-gray mt-20">
+            <span class="l">
+                <a href="javascript:;" onclick="datadel()" th:onclick="'javascript:log_batch_del();'" class="btn btn-danger radius"><i class="Hui-iconfont">&#xe6e2;</i> 批量删除</a>
+				<!--<a href="javascript:;" th:onclick="'javascript:admin_add(\'添加管理员\',\'/admin/manager/user/add\',\'800\',\'500\');'" class="btn btn-primary radius"><i class="Hui-iconfont">&#xe600;</i> 添加管理员</a>-->
+            </span>
+			<span class="r">共有数据：<strong th:text="${pageInfo?.total}" id="total">54</strong> 条</span>
+		</div>
+		<table class="table table-border table-bordered table-bg table-hover">
+			<thead>
+			<tr>
+				<th scope="col" colspan="12">检索结果列表</th>
+			</tr>
+			<tr class="text-c">
+				<th width="25"><input type="checkbox" name="" value=""/></th>
+				<th>序号</th>
+				<th>用户名</th>
+				<th>用户操作</th>
+				<th>请求关键字</th>
+				<th>请求地址</th>
+				<th>请求方式</th>
+				<th>耗时(ms)</th>
+				<th>是否异常</th>
+				<th>操作IP</th>
+				<th>操作时间</th>
+				<th width="100">操作</th>
+			</tr>
+			</thead>
+			<tbody>
+			<tr class="text-c" th:each="model:${pageInfo?.list}" th:object="${model}">
+				<td><input type="checkbox" th:value="*{id}" id=""/></td>
+				<td th:text="${((pageInfo?.pageNum - 1) * pageInfo?.pageSize) + modelStat.count}">d</td>
+				<td th:text="*{username}">2</td>
+				<td th:text="*{operation}">3</td>
+				<td th:text="*{requestkey}"></td>
+				<td th:text="*{requestUri}"></td>
+				<td th:text="*{requestMethod}"></td>
+				<td>
+					<span class="label radius label-secondary" th:text="*{timeConsuming}">10</span>
+				</td>
+				<td class="td-status">
+					<span class="label radius label-success" th:if="*{logType} == 0">正常</span>
+					<span class="label radius label-danger" th:unless="*{logType} == 0">异常</span>
+				</td>
+				<td th:text="*{requestIp}"></td>
+				<td th:text="*{#dates.format(createTime, 'yyyy-MM-dd HH:mm:ss')}">2014-6-11 11:11:42</td>
+				<td class="td-manage">
+					<a title="详情" href="javascript:;" onclick="system_log_show(this,'10001')" th:onclick="'javascript:log_view(\'查看详情\', \'/admin/log/'+*{id}+'\',\'800\',\'500\');'" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe665;</i></a>
+					<a title="删除" href="javascript:;" onclick="admin_del(this,'1')" th:onclick="'javascript:log_del(this, \'/admin/log/'+*{id}+'\');'" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6e2;</i></a>
+				</td>
+			</tr>
+			</tbody>
+		</table>
+    </div>
+
+</form>
+
+<script type="text/javascript" th:src="@{/js/lib/treegrid/jquery.treegrid.min.js}"></script>
+<script type="text/javascript" th:src="@{/js/lib/treegrid/jquery.treegrid.bootstrap3.js}"></script>
+<script type="text/javascript" th:src="@{/js/lib/treegrid/jquery.treegrid.extension.js}"></script>
+<script type="text/javascript" th:src="@{/js/lib/treegrid/tree.table.js}"></script>
+<script type="text/javascript" th:src="@{/js/admin/oti/oti-field.js}"></script>
+<script type="application/javascript">
+	function searchRemote () {
+        $(function () {
+            $('#AjaxBtn').click(function () {
+                $.ajax({
+                    url:"http://****/ask/AJAXTest/AjaxAction.do",//此处换成你的服务端地址
+                    type:"Post",
+                    data:{},
+                    dataType:"jsonp",//jsonp 实现跨域
+                    jsonpCallback:"fun",//服务器返回执行的方法名
+                    success:function (data) {
+                        console.log("success");
+                        $('#resultView').html(data.msg);//将返回信息填入页面
+                    },
+                    error:function (err) {
+                        console.log("error!!!!");
+                    }
+                });
+
+            });
+        });
+    }
+    function searchLocal () {
+        alert("有待实现···");
+    }
+</script>
+</body>
+</html>
