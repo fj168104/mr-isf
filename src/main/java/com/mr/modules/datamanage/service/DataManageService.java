@@ -15,10 +15,11 @@ public interface DataManageService extends BaseService<MrCrawlerOnebankTwomeetPu
      * 分页查询处罚列表
      * @param pageNum
      * @param pageSize
-     * @param username
-     * @param startTime
-     * @param endTime
+     * @param punishInstitution
+     * @param publishDate
+     * @param punishDate
+     * Integer pageNum,String punishInstitution, String publishDate, String punishDate,
      * @return
      */
-    PageInfo<MrCrawlerOnebankTwomeetPunishDtl> findPage(Integer pageNum, Integer pageSize, String username, String startTime, String endTime);
+    PageInfo<MrCrawlerOnebankTwomeetPunishDtl> findPage(Integer pageNum, Integer pageSize, String punishInstitution, String publishDate, String punishDate);
 }

@@ -11,7 +11,7 @@
     <i class="Hui-iconfont">&#xe67f;</i>
     首页
     <span class="c-gray en">&gt;</span>数据管理 <span class="c-gray en">&gt;</span>
-    分类管理
+    分类信息
     <a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新" >
         <i class="Hui-iconfont">&#xe68f;</i>
     </a>
@@ -19,11 +19,12 @@
 <form id="myForm" th:action="@{/admin/datamanage}" th:method="get">
     <div class="page-container">
         <div class="text-c">
-            日期范围：
-            <input type="text" onfocus="WdatePicker({dateFmt:'yyyy-MM-dd',maxDate:'#F{$dp.$D(\'dateMax\')}'})" id="dateMin" class="input-text Wdate" style="width:120px;" name="startTime" th:value="${startTime}" readonly="readonly"/>
-            -
-            <input type="text" onfocus="WdatePicker({dateFmt:'yyyy-MM-dd',minDate:'#F{$dp.$D(\'dateMin\')}'})" id="dateMax" class="input-text Wdate" style="width:120px;" name="endTime" th:value="${endTime}" readonly="readonly"/>
-            <input type="text" class="input-text" style="width:250px" placeholder="输入用户名" name="username" th:value="${username}"/>
+            发布时间：
+            <input type="text" onfocus="WdatePicker({dateFmt:'yyyy-MM-dd',maxDate:'#F{$dp.$D(\'dateMax\')}'})" id="dateMin" class="input-text Wdate" style="width:120px;" name="publishDate" th:value="${publishDate}" readonly="readonly"/>
+            处罚时间：
+            <input type="text" onfocus="WdatePicker({dateFmt:'yyyy-MM-dd',minDate:'#F{$dp.$D(\'dateMin\')}'})" id="dateMax" class="input-text Wdate" style="width:120px;" name="punishDate" th:value="${punishDate}" readonly="readonly"/>
+            处罚机关：
+            <input type="text" class="input-text" style="width:250px" placeholder="请输入处罚机关" name="punishInstitution" th:value="${punishInstitution}"/>
             <button type="submit" class="btn btn-success">
                 <i class="Hui-iconfont">&#xe665;</i>
                 搜索
@@ -36,106 +37,28 @@
             </span>
             <span class="r">共有数据：<strong th:text="${pageInfo?.total}" id="total">54</strong> 条</span>
         </div>
-        <table class="table table-border table-bordered table-bg table-hover">
+        <table class="table table-border table-bordered table-bg table-hover" text-align="left">
             <thead>
             <tr>
-                <th scope="col" colspan="12">日志列表</th>
+                <th scope="col" colspan="12">一行两会处罚列表</th>
             </tr>
             <tr class="text-c">
-                <th width="25"><input type="checkbox" name="" value=""/></th>
-                <th>序号</th>
-                <th>业务主键</th>
-                <th>处罚文号</th>
-                <th>标题名称</th>
-                <th>公司</th>
-                <th>个人</th>
-                <th>身份证号</th>
-                <th>职务</th>
-                <th>住址</th>
-                <th>一码通代码</th>
-                <th>处分对象类型</th>
-                <th>机构当事人住所</th>
-                <th>法定代表人
-                <th>当事人补充情况</th>
-                <th>公司全称</th>
-                <th>中介机构类别</th>
-                <th>公司简称</th>
-                <th>公司代码</th>
-                <th>证券代码</th>
-                <th>证券简称</th>
-                <th>处分类别</th>
-                <th>违规情况</th>
-                <th>相关法规</th>
-                <th>涉及债券</th>
-                <th>处罚结果</th>
-                <th>处罚结果补充情况</th>
-                <th>处罚机关</th>
-                <th>处罚日期</th>
-                <th>整改时限</th>
-                <th>发布机构</th>
-                <th>发布日期</th>
-                <th>监管类型</th>
-                <th>名单分类</th>
-                <th>详情</th>
-                <th>来源</th>
-                <th>来源url</th>
-                <th>来源url
-                <th>创建时间</th>
-                <th>更新时间</th>
+                <th ><input type="checkbox" name="" value=""/></th>
+                <th >序号</th>
+                <th >标题名称</th>
+                <th >来源</th>
                 <th>操作</th>
             </tr>
             </thead>
-            <tbody>
+            <tbody >
             <tr class="text-c" th:each="model:${pageInfo?.list}" th:object="${model}">
-                <td><input type="checkbox" th:value="*{id}" id=""/></td>
-                <td th:text="${((pageInfo?.pageNum - 1) * pageInfo?.pageSize) + modelStat.count}">d</td>
-                <td th:text="*{primaryKey}">2</td>
-                <td th:text="*{punishNo}">3</td>
-                <td th:text="*{punishTitle}"></td>
-                <td th:text="*{partyInstitution}"></td>
-                <td th:text="*{partyPerson}">
-                <td th:text="*{partyPersonId}">2</td>
-                <td th:text="*{partyPersonTitle}">3</td>
-                <td th:text="*{partyPersonDomi}"></td>
-                <td th:text="*{unicode}"></td>
-                <td th:text="*{partyCategory}"></td>
-
-                <td th:text="*{domicile}">2</td>
-                <td th:text="*{legalRepresentative}">3</td>
-                <td th:text="*{partySupplement}"></td>
-                <td th:text="*{companyFullName}"></td>
-                <td th:text="*{intermediaryCategory}"></td>
-
-                <td th:text="*{companyShortName}">2</td>
-                <td th:text="*{companyCode}">3</td>
-                <td th:text="*{stockCode}"></td>
-                <td th:text="*{stockShortName}"></td>
-                <td th:text="*{punishCategory}"></td>
-
-                <td th:text="*{relatedBond}">2</td>
-                <td th:text="*{punishResult}">3</td>
-                <td th:text="*{punishInstitution}"></td>
-                <td th:text="*{punishDate}"></td>
-                <td th:text="*{remedialLimitTime}"></td>
-
-                <td th:text="*{publisher}">2</td>
-                <td th:text="*{publishDate}">3</td>
-                <td th:text="*{listClassification}"></td>
-                <td th:text="*{supervisionType}"></td>
-                <td th:text="*{source}"></td>
-
-                <td th:text="*{url}">2</td>
-                <td th:text="*{object}">3</td>
-                <td th:text="*{createTime}">2014-6-11 11:11:42</td>
-                <td th:text="*{updateTime}">2014-6-11 11:11:42</td>
-                <td th:text="*{irregularities}"></td>
-
-                <td th:text="*{relatedLaw}">2014-6-11 11:11:42</td>
-                <td th:text="*{punishResultSupplement}">2014-6-11 11:11:42</td>
-                <td th:text="*{details}"></td>
+                <td  ><input type="checkbox" th:value="*{id}" id=""/></td>
+                <td  th:text="${((pageInfo?.pageNum - 1) * pageInfo?.pageSize) + modelStat.count}">d</td>
+                <td style="text-align: left" th:text="*{punishTitle}"></td>
+                <td style="text-align: left"  th:text="*{url}">
                 <td class="td-manage">
-                    <a title="详情" href="javascript:;" onclick="system_datamanage_show(this,'10001')" th:onclick="'javascript:log_view(\'查看详情\', \'/admin/log/'+*{id}+'\',\'800\',\'500\');'" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe665;</i></a>
-                    <a title="删除" href="javascript:;" onclick="admin_del(this,'1')" th:onclick="'javascript:datamanage_del(this, \'/admin/log/'+*{id}+'\');'" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6e2;</i></a>
+                    <a title="详情" href="javascript:;" onclick="system_datamanage_show(this,'10001')" th:onclick="'javascript:mrCrawlerOnebankTwomeetPunishDtl_view(\'查看详情\', \'/admin/datamanage/'+*{id}+'\',\'800\',\'500\');'" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe665;</i></a>
+                    <a title="删除" href="javascript:;" onclick="admin_del(this,'1')" th:onclick="'javascript:datamanage_del(this, \'/admin/datamanage/'+*{id}+'\');'" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6e2;</i></a>
                 </td>
             </tr>
             </tbody>
@@ -145,7 +68,7 @@
 </form>
 
 <script type="text/javascript" th:src="@{/js/common/page.js}"></script>
-<script type="text/javascript" th:src="@{/js/admin/datamanage/datamanage-list.js}"></script>
+<!--<script type="text/javascript" th:src="@{/js/admin/datamanage/datamanage-list.js}"></script>-->
 <script th:inline="javascript">
 
 </script>

@@ -35,9 +35,9 @@ public class MrCrawlerOneBankTwomeetPunishDtlController extends BaseController {
      * 分页查询处罚信息列表
      *
      * @param pageNum   当前页码
-     * @param username  用户名
-     * @param startTime 开始时间
-     * @param endTime   结束时间
+     * @param punishInstitution  处罚机关
+     * @param publishDate 发布时间
+     * @param punishDate   处罚时间
      * @param modelMap
      * @return
      */
@@ -45,15 +45,15 @@ public class MrCrawlerOneBankTwomeetPunishDtlController extends BaseController {
     @GetMapping
     public String list(
             @RequestParam(value = "pageNum", defaultValue = "1") Integer pageNum,
-            String username, String startTime, String endTime, ModelMap modelMap) {
+            String punishInstitution, String publishDate, String punishDate, ModelMap modelMap) {
         try {
-            log.debug("分页查询处罚信息列表参数! pageNum = {}, username = {}, username = {}, startTime = {}, endTime = {}", pageNum, username, startTime, endTime);
-            PageInfo<MrCrawlerOnebankTwomeetPunishDtl> pageInfo = dataManageService.findPage(pageNum, PAGESIZE, username, startTime, endTime);
+            log.debug("分页查询处罚信息列表参数! pageNum = {},  punishInstitution = {}, publishDate = {}, punishDate = {}", pageNum, punishInstitution, publishDate, punishDate);
+            PageInfo<MrCrawlerOnebankTwomeetPunishDtl> pageInfo = dataManageService.findPage(pageNum, PAGESIZE, punishInstitution, publishDate, punishDate);
             log.info("分页查询日志列表结果！ pageInfo = {}", pageInfo);
             modelMap.put("pageInfo", pageInfo);
-            modelMap.put("username", username);
-            modelMap.put("startTime", startTime);
-            modelMap.put("endTime", endTime);
+            modelMap.put("punishInstitution", punishInstitution);
+            modelMap.put("publishDate", publishDate);
+            modelMap.put("punishDate", punishDate);
         } catch (Exception e) {
             log.error("分页查询日志列表失败! e = {}", e);
         }

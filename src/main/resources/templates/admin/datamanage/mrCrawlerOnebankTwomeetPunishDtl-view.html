@@ -3,31 +3,31 @@
        xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
        layout:decorate="~{admin/common/common}">
 <head>
-    <title>查看日志详情</title>
+    <title>查看处罚详情</title>
 </head>
 
 <body layout:fragment="content">
 <article class="page-container">
     <form class="form form-horizontal" id="form-good-view" th:object="${model}">
         <div class="row cl">
-            <label class="form-label col-xs-4 col-sm-3">用户名：</label>
+            <label class="form-label col-xs-4 col-sm-3">序号：</label>
             <div class="formControls col-xs-8 col-sm-9">
-                <span th:text="*{username}"></span>
+                <span th:text="*{id}"></span>
             </div>
         </div>
         <div class="row cl">
-            <label class="form-label col-xs-4 col-sm-3">用户操作：</label>
+            <label class="form-label col-xs-4 col-sm-3">标题名称：</label>
             <div class="formControls col-xs-8 col-sm-9">
-                <span th:text="*{operation}"></span>
+                <span th:text="*{punishTitle}"></span>
             </div>
         </div>
         <div class="row cl">
-            <label class="form-label col-xs-4 col-sm-3">请求方法：</label>
+            <label class="form-label col-xs-4 col-sm-3">来源：</label>
             <div class="formControls col-xs-8 col-sm-9">
-                <span th:text="*{methodName}"></span>
+                <span th:text="*{url}"></span>
             </div>
         </div>
-        <div class="row cl">
+        <!--<div class="row cl">
             <label class="form-label col-xs-4 col-sm-3">请求地址：</label>
             <div class="formControls col-xs-8 col-sm-9">
                 <span th:text="*{requestUri}"></span>
@@ -90,7 +90,7 @@
             <div class="formControls col-xs-8 col-sm-9">
                 <span th:text="*{userAgent}">未认证</span>
             </div>
-        </div>
+        </div>-->
     </form>
 </article>
 

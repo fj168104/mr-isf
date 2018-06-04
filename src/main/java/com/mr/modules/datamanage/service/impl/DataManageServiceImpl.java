@@ -16,7 +16,7 @@ import tk.mybatis.mapper.entity.Example;
 import java.util.List;
 
 /**
- * @author cuiP
+ * @author xuzj
  * Created by JK on 2017/4/27.
  */
 @Transactional
@@ -25,15 +25,15 @@ public class DataManageServiceImpl extends BaseServiceImpl<MrCrawlerOnebankTwome
 
     @Transactional(readOnly = true)
     @Override
-    public PageInfo<MrCrawlerOnebankTwomeetPunishDtl> findPage(Integer pageNum, Integer pageSize, String username, String startTime, String endTime) {
-        Example example = new Example(Log.class);
+    public PageInfo<MrCrawlerOnebankTwomeetPunishDtl> findPage(Integer pageNum,Integer pageSize, String punishInstitution, String publishDate, String punishDate) {
+        Example example = new Example(MrCrawlerOnebankTwomeetPunishDtl.class);
         Example.Criteria criteria = example.createCriteria();
-        if(StringUtils.isNotEmpty(username)){
-            criteria.andLike("username", "%"+username+"%");
-        }if(StrUtil.isNotEmpty(startTime)){
-            criteria.andGreaterThanOrEqualTo("createTime", DateUtil.beginOfDay(DateUtil.parse(startTime)));
-        }if(StrUtil.isNotEmpty(endTime)){
-            criteria.andLessThanOrEqualTo("createTime", DateUtil.endOfDay(DateUtil.parse(endTime)));
+        if(StringUtils.isNotEmpty(punishInstitution)){
+            criteria.andLike("punishInstitution", "%"+punishInstitution+"%");
+        }if(StrUtil.isNotEmpty(publishDate)){
+            criteria.andGreaterThanOrEqualTo("createTime", DateUtil.beginOfDay(DateUtil.parse(publishDate)));
+        }if(StrUtil.isNotEmpty(punishDate)){
+            criteria.andLessThanOrEqualTo("createTime", DateUtil.endOfDay(DateUtil.parse(punishDate)));
         }
 
         //倒序
