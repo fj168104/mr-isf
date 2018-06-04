@@ -9,12 +9,14 @@
 <body layout:fragment="content">
 <article class="page-container">
     <form class="form form-horizontal" id="form-good-view" th:object="${model}">
+		<!--     	
         <div class="row cl">
             <label class="form-label col-xs-4 col-sm-3">序号：</label>
             <div class="formControls col-xs-8 col-sm-9">
                 <span th:text="*{id}"></span>
             </div>
         </div>
+         -->
         <div class="row cl">
             <label class="form-label col-xs-4 col-sm-3">标题名称：</label>
             <div class="formControls col-xs-8 col-sm-9">
@@ -22,75 +24,203 @@
             </div>
         </div>
         <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-3">当事人（公司）：</label>
+            <div class="formControls col-xs-8 col-sm-9">
+                <span th:text="*{partyInstitution}"></span>
+            </div>
+        </div>
+        <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-3">当事人（个人）：</label>
+            <div class="formControls col-xs-8 col-sm-9">
+                <span th:text="*{partyPerson}"></span>
+            </div>
+        </div>
+        <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-3">当事人身份证号：</label>
+            <div class="formControls col-xs-8 col-sm-9">
+                <span th:text="*{partyPersonId}"></span>
+            </div>
+        </div>
+        <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-3">当事人职务：</label>
+            <div class="formControls col-xs-8 col-sm-9">
+                <span th:text="*{partyPersonTitle}"></span>
+            </div>
+        </div>
+        <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-3">当事人住址/机构所在地：</label>
+            <div class="formControls col-xs-8 col-sm-9">
+                <span th:text="*{partyPersonDomi}"></span>
+            </div>
+        </div>
+        <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-3">一码通代码：</label>
+            <div class="formControls col-xs-8 col-sm-9">
+                <span th:text="*{unicode}"></span>
+            </div>
+        </div>
+        <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-3">处分对象类型：</label>
+            <div class="formControls col-xs-8 col-sm-9">
+                <span th:text="*{partyCategory}"></span>
+            </div>
+        </div>
+        <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-3">住所地：</label>
+            <div class="formControls col-xs-8 col-sm-9">
+                <span th:text="*{domicile}"></span>
+            </div>
+        </div>
+        <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-3">住所地：</label>
+            <div class="formControls col-xs-8 col-sm-9">
+                <span th:text="*{domicile}"></span>
+            </div>
+        </div>
+        <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-3">机构负责人姓名：</label>
+            <div class="formControls col-xs-8 col-sm-9">
+                <span th:text="*{legalRepresentative}"></span>
+            </div>
+        </div>
+        <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-3">当事人补充情况：</label>
+            <div class="formControls col-xs-8 col-sm-9">
+                <span th:text="*{partySupplement}"></span>
+            </div>
+        </div>
+        <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-3">公司全称：</label>
+            <div class="formControls col-xs-8 col-sm-9">
+                <span th:text="*{companyFullName}"></span>
+            </div>
+        </div>
+        <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-3">中介机构类别：</label>
+            <div class="formControls col-xs-8 col-sm-9">
+                <span th:text="*{intermediaryCategory}"></span>
+            </div>
+        </div>
+        <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-3">公司简称：</label>
+            <div class="formControls col-xs-8 col-sm-9">
+                <span th:text="*{companyShortName}"></span>
+            </div>
+        </div>
+        <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-3">公司代码：</label>
+            <div class="formControls col-xs-8 col-sm-9">
+                <span th:text="*{companyCode}"></span>
+            </div>
+        </div>
+        <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-3">证券代码：</label>
+            <div class="formControls col-xs-8 col-sm-9">
+                <span th:text="*{stockCode}"></span>
+            </div>
+        </div>
+        <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-3">证券简称：</label>
+            <div class="formControls col-xs-8 col-sm-9">
+                <span th:text="*{stockShortName}"></span>
+            </div>
+        </div>
+        <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-3">处分类别：</label>
+            <div class="formControls col-xs-8 col-sm-9">
+                <span th:text="*{punishCategory}"></span>
+            </div>
+        </div>
+        <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-3">涉及债券：</label>
+            <div class="formControls col-xs-8 col-sm-9">
+                <span th:text="*{relatedBond}"></span>
+            </div>
+        </div>
+        <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-3">处罚结果：</label>
+            <div class="formControls col-xs-8 col-sm-9">
+                <span th:text="*{punishResult}"></span>
+            </div>
+        </div>
+        <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-3">处罚机关：</label>
+            <div class="formControls col-xs-8 col-sm-9">
+                <span th:text="*{punishInstitution}"></span>
+            </div>
+        </div>
+        <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-3">处罚日期：</label>
+            <div class="formControls col-xs-8 col-sm-9">
+                <span th:text="*{punishDate}"></span>
+            </div>
+        </div>
+        <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-3">整改时限：</label>
+            <div class="formControls col-xs-8 col-sm-9">
+                <span th:text="*{remedialLimitTime}"></span>
+            </div>
+        </div>
+        <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-3">发布机构：</label>
+            <div class="formControls col-xs-8 col-sm-9">
+                <span th:text="*{publisher}"></span>
+            </div>
+        </div>
+        <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-3">发布日期：</label>
+            <div class="formControls col-xs-8 col-sm-9">
+                <span th:text="*{publishDate}"></span>
+            </div>
+        </div>
+        <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-3">监管类型：</label>
+            <div class="formControls col-xs-8 col-sm-9">
+                <span th:text="*{listClassification}"></span>
+            </div>
+        </div>
+        <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-3">名单分类：</label>
+            <div class="formControls col-xs-8 col-sm-9">
+                <span th:text="*{supervisionType}"></span>
+            </div>
+        </div>
+        <div class="row cl">
             <label class="form-label col-xs-4 col-sm-3">来源：</label>
+            <div class="formControls col-xs-8 col-sm-9">
+                <span th:text="*{source}"></span>
+            </div>
+        </div>
+        <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-3">原文链接：</label>
             <div class="formControls col-xs-8 col-sm-9">
                 <span th:text="*{url}"></span>
             </div>
         </div>
-        <!--<div class="row cl">
-            <label class="form-label col-xs-4 col-sm-3">请求地址：</label>
+        <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-3">处理事由：</label>
             <div class="formControls col-xs-8 col-sm-9">
-                <span th:text="*{requestUri}"></span>
+                <span th:text="*{irregularities}"></span>
             </div>
         </div>
         <div class="row cl">
-            <label class="form-label col-xs-4 col-sm-3">请求参数：</label>
+            <label class="form-label col-xs-4 col-sm-3">违反条例：</label>
             <div class="formControls col-xs-8 col-sm-9">
-                <span th:text="*{requestParams}"></span>
+                <span th:text="*{relatedLaw}"></span>
             </div>
         </div>
         <div class="row cl">
-            <label class="form-label col-xs-4 col-sm-3">请求方式：</label>
+            <label class="form-label col-xs-4 col-sm-3">处罚结果补充情况：</label>
             <div class="formControls col-xs-8 col-sm-9">
-                <span th:text="*{requestMethod}"></span>
+                <span th:text="*{punishResultSupplement}"></span>
             </div>
         </div>
         <div class="row cl">
-            <label class="form-label col-xs-4 col-sm-3">耗时(ms)：</label>
+            <label class="form-label col-xs-4 col-sm-3">详情：</label>
             <div class="formControls col-xs-8 col-sm-9">
-                <span th:text="*{timeConsuming}"></span>
+                <span th:text="*{details}"></span>
             </div>
         </div>
-        <div class="row cl">
-            <label class="form-label col-xs-4 col-sm-3">操作IP ：</label>
-            <div class="formControls col-xs-8 col-sm-9">
-                <span th:text="*{requestIp}"></span>
-            </div>
-        </div>
-        <div class="row cl">
-            <label class="form-label col-xs-4 col-sm-3">操作时间：</label>
-            <div class="formControls col-xs-8 col-sm-9">
-                <span th:text="*{#dates.format(createTime, 'yyyy-MM-dd HH:mm:ss')}">2014-6-11 11:11:42</span>
-            </div>
-        </div>
-        <div class="row cl">
-            <label class="form-label col-xs-4 col-sm-3">是否异常 ：</label>
-            <div class="formControls col-xs-8 col-sm-9">
-                <span th:if="*{logType} == 0">正常</span>
-                <span th:unless="*{logType} == 0">异常</span>
-            </div>
-        </div>
-        <th:block th:if="*{logType} == 1">
-            <div class="row cl">
-                <label class="form-label col-xs-4 col-sm-3">异常编码：</label>
-                <div class="formControls col-xs-8 col-sm-9">
-                    <span th:text="*{exceptionCode}">404</span>
-                </div>
-            </div>
-            <div class="row cl">
-                <label class="form-label col-xs-4 col-sm-3">异常详情：</label>
-                <div class="formControls col-xs-8 col-sm-9">
-                    <span th:text="*{exceptionDetail}">未认证</span>
-                </div>
-            </div>
-        </th:block>
-
-        <div class="row cl">
-            <label class="form-label col-xs-4 col-sm-3">客户端信息：</label>
-            <div class="formControls col-xs-8 col-sm-9">
-                <span th:text="*{userAgent}">未认证</span>
-            </div>
-        </div>-->
     </form>
 </article>
 
